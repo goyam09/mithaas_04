@@ -1,0 +1,2 @@
+admin_id=admin
+admin_password=admin123

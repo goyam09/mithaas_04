@@ -1,0 +1,2841 @@
+<!-- admin_dashboard.html  -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mithaas — Admin Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --brand: #FF6B35;
+            --brand-dark: #e55a25;
+            --brand-light: rgba(255, 107, 53, 0.1);
+            --bg: #0f0f0f;
+            --side: #111;
+            --card: #1a1a1a;
+            --card2: #222;
+            --card3: #2a2a2a;
+            --border: #2e2e2e;
+            --text: #f0f0f0;
+            --muted: #777;
+            --muted2: #aaa;
+            --green: #22c55e;
+            --red: #ef4444;
+            --yellow: #f59e0b;
+            --blue: #3b82f6;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            display: flex;
+            min-height: 100vh
+        }
+
+        .sidebar {
+            width: 230px;
+            background: var(--side);
+            border-right: 1px solid var(--border);
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 100
+        }
+
+        .logo {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--brand), #ff9a5c);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0
+        }
+
+        .logo-text h2 {
+            font-size: 16px;
+            font-weight: 800
+        }
+
+        .logo-text h2 span {
+            color: var(--brand)
+        }
+
+        .logo-text p {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 1px
+        }
+
+        .nav {
+            flex: 1;
+            padding: 12px 0;
+            overflow-y: auto
+        }
+
+        .nav-section {
+            padding: 10px 16px 4px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted2);
+            transition: all .15s;
+            border-left: 3px solid transparent;
+            border-radius: 0
+        }
+
+        .nav-item:hover {
+            color: var(--text);
+            background: var(--card2)
+        }
+
+        .nav-item.active {
+            color: var(--brand);
+            background: var(--brand-light);
+            border-left-color: var(--brand)
+        }
+
+        .nav-item .icon {
+            font-size: 15px;
+            width: 18px;
+            text-align: center
+        }
+
+        .sidebar-footer {
+            padding: 14px 16px;
+            border-top: 1px solid var(--border)
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--brand);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700
+        }
+
+        .user-info-text {
+            flex: 1;
+            min-width: 0
+        }
+
+        .user-info-text .name {
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .user-info-text .role {
+            font-size: 10px;
+            color: var(--muted);
+            text-transform: uppercase
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--muted);
+            cursor: pointer;
+            text-decoration: none;
+            padding: 6px 0
+        }
+
+        .logout-btn:hover {
+            color: var(--red)
+        }
+
+        .main {
+            margin-left: 230px;
+            flex: 1;
+            min-width: 0
+        }
+
+        .topbar {
+            background: var(--side);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50
+        }
+
+        .topbar-title {
+            font-size: 16px;
+            font-weight: 700
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .content {
+            padding: 24px 28px
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 20px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 0 14px 0 60px;
+            opacity: 0.1
+        }
+
+        .stat-card.orange::before {
+            background: var(--brand)
+        }
+
+        .stat-card.green::before {
+            background: var(--green)
+        }
+
+        .stat-card.blue::before {
+            background: var(--blue)
+        }
+
+        .stat-card.yellow::before {
+            background: var(--yellow)
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px
+        }
+
+        .stat-value {
+            font-size: 26px;
+            font-weight: 800;
+            line-height: 1
+        }
+
+        .stat-sub {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 6px
+        }
+
+        .stat-icon {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 22px;
+            opacity: 0.6
+        }
+
+        /* Section */
+        .section {
+            display: none
+        }
+
+        .section.active {
+            display: block
+        }
+
+        /* Card */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 20px
+        }
+
+        .card-header {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px
+        }
+
+        .card-header h3 {
+            font-size: 14px;
+            font-weight: 700
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        th {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 10px 16px;
+            text-align: left;
+            background: var(--card2)
+        }
+
+        td {
+            padding: 11px 16px;
+            font-size: 13px;
+            border-top: 1px solid var(--border);
+            vertical-align: middle
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.015)
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600
+        }
+
+        .badge-green {
+            background: rgba(34, 197, 94, .12);
+            color: var(--green)
+        }
+
+        .badge-red {
+            background: rgba(239, 68, 68, .12);
+            color: var(--red)
+        }
+
+        .badge-yellow {
+            background: rgba(245, 158, 11, .12);
+            color: var(--yellow)
+        }
+
+        .badge-blue {
+            background: rgba(59, 130, 246, .12);
+            color: var(--blue)
+        }
+
+        .badge-orange {
+            background: rgba(255, 107, 53, .12);
+            color: var(--brand)
+        }
+
+        /* Btn */
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all .15s
+        }
+
+        .btn-primary {
+            background: var(--brand);
+            color: #fff
+        }
+
+        .btn-primary:hover {
+            background: var(--brand-dark)
+        }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, .12);
+            color: var(--red)
+        }
+
+        .btn-danger:hover {
+            background: var(--red);
+            color: #fff
+        }
+
+        .btn-success {
+            background: rgba(34, 197, 94, .12);
+            color: var(--green)
+        }
+
+        .btn-success:hover {
+            background: var(--green);
+            color: #fff
+        }
+
+        .btn-ghost {
+            background: var(--card2);
+            color: var(--text);
+            border: 1px solid var(--border)
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--brand);
+            color: var(--brand)
+        }
+
+        .btn-sm {
+            padding: 5px 11px;
+            font-size: 12px
+        }
+
+        .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap
+        }
+
+        /* Form */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px
+        }
+
+        .form-group {
+            margin-bottom: 14px
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: var(--text);
+            font-size: 13px;
+            outline: none;
+            transition: border-color .2s
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--brand)
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            backdrop-filter: blur(4px)
+        }
+
+        .modal-overlay.show {
+            display: flex
+        }
+
+        .modal {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 28px;
+            width: 100%;
+            max-width: 520px;
+            max-height: 88vh;
+            overflow-y: auto
+        }
+
+        .modal h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px
+        }
+
+        /* Search */
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap
+        }
+
+        .toolbar input,
+        .toolbar select {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 9px 14px;
+            color: var(--text);
+            font-size: 13px;
+            outline: none;
+            flex: 1;
+            min-width: 150px
+        }
+
+        .toolbar input:focus {
+            border-color: var(--brand)
+        }
+
+        /* Toggle */
+        .toggle {
+            width: 38px;
+            height: 22px;
+            background: var(--card3);
+            border-radius: 11px;
+            position: relative;
+            cursor: pointer;
+            transition: background .2s;
+            flex-shrink: 0
+        }
+
+        .toggle.on {
+            background: var(--green)
+        }
+
+        .toggle::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: transform .2s
+        }
+
+        .toggle.on::after {
+            transform: translateX(16px)
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 80px;
+            padding: 0 4px;
+            margin-top: 20px
+        }
+
+        .bar {
+            flex: 1;
+            background: var(--brand);
+            border-radius: 4px 4px 0 0;
+            opacity: 0.8;
+            transition: opacity .2s;
+            min-height: 3px;
+            position: relative
+        }
+
+        .bar:hover {
+            opacity: 1
+        }
+
+        .bar-label {
+            font-size: 9px;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 4px
+        }
+
+        /* Two-column layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px
+        }
+
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px
+        }
+
+        /* Status dot */
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px
+        }
+
+        .dot-green {
+            background: var(--green)
+        }
+
+        .dot-red {
+            background: var(--red)
+        }
+
+        .dot-yellow {
+            background: var(--yellow)
+        }
+
+        /* Radio pills */
+        .radio-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .radio-pill {
+            padding: 7px 14px;
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .15s
+        }
+
+        .radio-pill.selected {
+            background: var(--brand);
+            border-color: var(--brand);
+            color: #fff
+        }
+
+        /* Tables status colors */
+        .table-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 12px;
+            padding: 16px
+        }
+
+        .table-tile {
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+            cursor: default;
+            transition: all .2s
+        }
+
+        .table-tile.available {
+            border-color: var(--green);
+            background: rgba(34, 197, 94, .05)
+        }
+
+        .table-tile.occupied {
+            border-color: var(--red);
+            background: rgba(239, 68, 68, .05)
+        }
+
+        .table-tile.reserved {
+            border-color: var(--yellow);
+            background: rgba(245, 158, 11, .05)
+        }
+
+        .table-tile .tnum {
+            font-size: 18px;
+            font-weight: 800
+        }
+
+        .table-tile .tcap {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px
+        }
+
+        .table-tile .tstatus {
+            font-size: 10px;
+            font-weight: 700;
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px
+        }
+
+        .available .tstatus {
+            color: var(--green)
+        }
+
+        .occupied .tstatus {
+            color: var(--red)
+        }
+
+        .reserved .tstatus {
+            color: var(--yellow)
+        }
+
+        /* @media(max-width:900px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .two-col,
+            .three-col {
+                grid-template-columns: 1fr
+            }
+        } */
+
+
+
+        @media(max-width:900px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .two-col,
+            .three-col {
+                grid-template-columns: 1fr
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform .3s;
+                position: fixed;
+                z-index: 200;
+                width: 230px
+            }
+
+            .sidebar.open {
+                transform: translateX(0)
+            }
+
+            .main {
+                margin-left: 0
+            }
+
+            .menu-toggle {
+                display: flex
+            }
+
+            .sidebar-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 199;
+                display: none
+            }
+
+            .sidebar-overlay.show {
+                display: block
+            }
+        }
+
+        @media(max-width:600px) {
+            .stats-grid {
+                grid-template-columns: 1fr
+            }
+
+            .content {
+                padding: 14px
+            }
+
+            .topbar {
+                padding: 10px 14px
+            }
+        }
+
+        /* .menu-toggle { display: none; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--card2); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-size: 18px } */
+        .menu-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            flex-shrink: 0
+        }
+
+        @media(max-width:900px) {
+            .menu-toggle {
+                display: flex
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">🍬</div>
+            <div class="logo-text">
+                <h2>MI<span>THAAS</span></h2>
+                <p id="rest-name-sidebar">Admin Panel</p>
+            </div>
+        </div>
+        <nav class="nav">
+            <div class="nav-section">Main</div>
+            <div class="nav-item active" onclick="nav('dashboard')"><span class="icon">📊</span>Dashboard</div>
+            <div class="nav-item" onclick="nav('tables')"><span class="icon">🪑</span>Counter/Seating</div>
+            <div class="nav-item" onclick="nav('stock')"><span class="icon">📦</span>Stock Management</div>
+            <div class="nav-section">Menu</div>
+            <div class="nav-item" onclick="nav('categories')"><span class="icon">🗂️</span>Categories</div>
+            <div class="nav-item" onclick="nav('menu')"><span class="icon">🍬</span>Items (Mithai/Namkeen)</div>
+            <div class="nav-section">Staff & Settings</div>
+            <div class="nav-item" onclick="nav('staff')"><span class="icon">👥</span>Workers / Staff</div>
+            <div class="nav-item" onclick="nav('kitchen')"><span class="icon">🖨️</span>Display Setup</div>
+            <div class="nav-item" onclick="nav('settings')"><span class="icon">⚙️</span>Restaurant Info</div>
+            <!-- <div class="nav-section">Reports</div>
+            <div class="nav-item" onclick="nav('reports')"><span class="icon">📋</span>Order Reports</div>
+            <div class="nav-item" onclick="nav('logs')"><span class="icon">🔐</span>Login Logs</div> -->
+            <!-- 
+            <div class="nav-section">Reports</div>
+            <div class="nav-item" onclick="nav('reports')"><span class="icon">📋</span>Order Reports</div>
+            <div class="nav-item" onclick="nav('analytics')"><span class="icon">📊</span>Analytics</div>
+            <div class="nav-item" onclick="nav('logs')"><span class="icon">🔐</span>Login Logs</div> -->
+
+            <div class="nav-section">Reports</div>
+            <div class="nav-item" onclick="nav('reports')"><span class="icon">📋</span>Order Reports</div>
+            <div class="nav-item" onclick="nav('analytics')"><span class="icon">📊</span>Analytics</div>
+            <div class="nav-item" onclick="nav('logs')"><span class="icon">🔐</span>Login Logs</div>
+            <div class="nav-section">Support</div>
+            <div class="nav-item" onclick="nav('contact')"><span class="icon">🛟</span>App Support</div>
+
+
+
+
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="avatar">A</div>
+                <div class="user-info-text">
+                    <div class="name" id="sidebar-rest">Restaurant</div>
+                    <div class="role">Admin</div>
+                </div>
+            </div>
+            <!-- <a class="logout-btn" href="/logout"><span>🚪</span>Logout</a> -->
+            <a class="logout-btn" href="/logout"><span>🚪</span>Logout</a>
+            <div
+                style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);line-height:1.8">
+                <div style="color:var(--brand);font-weight:700;font-size:11px">Nahar AI Technologies</div>
+                <div>Goyam Nahar Jain</div>
+                <div>📞 +91 94075 29992</div>
+                <div style="font-size:9px">✉️ naharaitechnologies@gmail.com</div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="main">
+        <!-- <div class="topbar">
+            <span class="topbar-title" id="topbar-title">Dashboard</span>
+            <div class="topbar-right">
+                <span id="topbar-date" style="font-size:12px;color:var(--muted)"></span>
+            </div>
+        </div> -->
+
+
+
+        <div class="topbar">
+            <div style="display:flex;align-items:center;gap:12px">
+                <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
+                <span class="topbar-title" id="topbar-title">Dashboard</span>
+            </div>
+            <div class="topbar-right">
+                <span id="topbar-date" style="font-size:12px;color:var(--muted)"></span>
+            </div>
+        </div>
+        <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+
+        <div class="content">
+
+            <!-- DASHBOARD -->
+            <div class="section active" id="sec-dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card orange">
+                        <div class="stat-icon">🧾</div>
+                        <div class="stat-label">Today's Orders</div>
+                        <div class="stat-value" id="d-orders">—</div>
+                        <div class="stat-sub">Completed bills</div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-label">Today's Revenue</div>
+                        <div class="stat-value" id="d-revenue">—</div>
+                        <div class="stat-sub">Total earnings</div>
+                    </div>
+                    <div class="stat-card blue">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-label">Active Orders</div>
+                        <div class="stat-value" id="d-active">—</div>
+                        <div class="stat-sub">In progress</div>
+                    </div>
+                    <div class="stat-card yellow">
+                        <div class="stat-icon">🪑</div>
+                        <div class="stat-label">Tables Occupied</div>
+                        <div class="stat-value" id="d-tables">—</div>
+                        <div class="stat-sub">Right now</div>
+                    </div>
+                </div>
+                <!-- <div class="card">
+                    <div class="card-header">
+                        <h3>📈 Revenue — Last 7 Days</h3>
+                    </div>
+                    <div style="padding:16px 20px 8px">
+                        <div class="chart-bars" id="chart-bars"></div>
+                        <div style="display:flex;gap:4px" id="chart-labels"></div>
+                    </div>
+                </div> -->
+
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>📈 Revenue — Last 7 Days</h3>
+                    </div>
+                    <div style="padding:16px 20px 8px;overflow:hidden">
+                        <div id="chart-bars" style="width:100%"></div>
+                        <div id="chart-labels"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- TABLES -->
+            <div class="section" id="sec-tables">
+                <div class="toolbar">
+                    <button class="btn btn-primary" onclick="openModal('add-table-modal')">+ Add Table</button>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>🪑 Restaurant Tables</h3>
+                        <div><span class="dot dot-green"></span>Available <span class="dot dot-red"
+                                style="margin-left:12px"></span>Occupied <span class="dot dot-yellow"
+                                style="margin-left:12px"></span>Reserved</div>
+                    </div>
+                    <div class="table-grid" id="tables-grid"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Table List</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Table No.</th>
+                                <th>Capacity</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tables-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- RESERVATIONS -->
+            <div class="section" id="sec-reservations">
+                <div class="toolbar">
+                    <button class="btn btn-primary" onclick="openReservationModal()">+ New Reservation</button>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>📅 Reservations</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Phone</th>
+                                <th>Table</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Party</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="res-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CATEGORIES -->
+            <div class="section" id="sec-categories">
+                <div class="toolbar">
+                    <button class="btn btn-primary" onclick="openModal('add-cat-modal')">+ Add Category</button>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>🗂️ Menu Categories</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Sort Order</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cats-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MENU -->
+            <div class="section" id="sec-menu">
+                <div class="toolbar">
+                    <input type="text" placeholder="Search items..." id="menu-search" oninput="filterMenu()">
+                    <select id="menu-cat-filter" onchange="filterMenu()">
+                        <option value="">All Categories</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="openAddMenuModal()">+ Add Item</button>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>🍛 Menu Items</h3><span id="menu-count" style="font-size:12px;color:var(--muted)"></span>
+                    </div>
+                    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+                    <table style="min-width:580px">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>₹/kg</th>
+                                <th>Stock</th>
+                                <th>On</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="menu-tbody"></tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STOCK MANAGEMENT -->
+            <div class="section" id="sec-stock">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>📦 Aaj ka Stock Enter Karo</h3>
+                        <button class="btn btn-ghost btn-sm" onclick="loadStockStatus()">↻ Refresh</button>
+                    </div>
+                    <div style="padding:14px;font-size:12px;color:var(--yellow);background:rgba(245,158,11,.07);border-radius:8px;margin:0 16px 12px">
+                        ⚡ Sirf dekhne ke liye — stock khatam hone par bhi order le sakte hain
+                    </div>
+                    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+                    <table style="min-width:600px">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Cat.</th>
+                                <th>₹/kg</th>
+                                <th>Banaya</th>
+                                <th>Bika</th>
+                                <th>Bacha</th>
+                                <th>Status</th>
+                                <th>Update</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stock-tbody"></tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAFF -->
+            <div class="section" id="sec-staff">
+                <div class="toolbar">
+                    <button class="btn btn-primary" onclick="openModal('add-staff-modal')">+ Add Staff</button>
+                </div>
+                <div class="three-col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>🧑 Worker (Counter Staff)</h3>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Password</th>
+                                    <th>Active</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="waiter-tbody"></tbody>
+                        </table>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>👨‍🍳 Kitchen Staff</h3>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Password</th>
+                                    <th>Active</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="kitchen-tbody"></tbody>
+                        </table>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>💳 Cashiers</h3>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Password</th>
+                                    <th>Active</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cashier-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KITCHEN SETUP -->
+            <div class="section" id="sec-kitchen">
+                <div class="card" style="max-width:400px">
+                    <div class="card-header">
+                        <h3>🖨️ Kitchen Display Settings</h3>
+                    </div>
+                    <div style="padding:20px">
+                        <div class="form-group"><label>Display Type</label>
+                            <div class="radio-pills" id="kds-pills">
+                                <div class="radio-pill selected" data-val="screen" onclick="selectKDS(this)">📺 Screen
+                                    (KDS)</div>
+                                <div class="radio-pill" data-val="printer" onclick="selectKDS(this)">🖨️ Printer</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="saveKitchenSettings()">Save Settings</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SETTINGS -->
+            <!-- <div class="section" id="sec-settings">
+                <div class="card" style="max-width:500px">
+                    <div class="card-header">
+                        <h3>⚙️ Restaurant Information</h3>
+                    </div>
+                    <div style="padding:20px">
+                        <div class="form-group"><label>Restaurant Name</label><input type="text" id="rs-name"></div>
+                        <div class="form-group"><label>Phone</label><input type="text" id="rs-phone"></div>
+                        <div class="form-group"><label>Address</label><input type="text" id="rs-address"></div>
+                        <div class="form-group"><label>GST Number</label><input type="text" id="rs-gst"></div>
+                        <button class="btn btn-primary" onclick="saveRestaurantInfo()">Save Changes</button>
+                    </div>
+                </div>
+            </div> -->
+
+
+
+            <!-- SETTINGS -->
+            <div class="section" id="sec-settings">
+                <div class="two-col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>⚙️ Restaurant Information</h3>
+                        </div>
+                        <div style="padding:20px">
+                            <div class="form-group"><label>Restaurant Name</label><input type="text" id="rs-name"></div>
+                            <div class="form-group"><label>Phone</label><input type="text" id="rs-phone"></div>
+                            <div class="form-group"><label>Address</label><input type="text" id="rs-address"></div>
+                            <div class="form-group"><label>GST Number</label><input type="text" id="rs-gst"></div>
+                            <div class="form-group"><label>GST Percentage (%)</label><input type="number"
+                                    id="rs-gst-pct" step="0.5" min="0" max="28" value="5"></div>
+                            <div class="form-group">
+                                <!-- <label>Show GST Number on Bill</label> -->
+                                <label>Calculate GST on Bills</label>
+                                <div class="toggle" id="gst-toggle" onclick="toggleGSTDisplay()" style="margin-top:5px">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="saveRestaurantInfo()">Save Changes</button>
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:16px">
+                        <!-- <div class="card">
+                            <div class="card-header">
+                                <h3>🔐 License Info</h3>
+                            </div>
+                            <div style="padding:20px">
+                                <div id="lic-info-box" style="margin-bottom:16px;font-size:13px;line-height:2"></div>
+                                <div class="form-group"><label>System HWID</label>
+                                    <input type="text" id="lic-hwid" readonly
+                                        style="font-family:monospace;font-size:11px;color:var(--muted)">
+                                </div>
+                                <div class="form-group"><label>Renew License Key</label>
+                                    <input type="text" id="renew-key" placeholder="RSTR-XXXX-XXXX-XXXX-XXXX">
+                                </div>
+                                <button class="btn btn-primary" onclick="renewLicense()">🔑 Renew License</button>
+                                <div id="renew-msg" style="margin-top:10px;font-size:13px"></div>
+                            </div>
+                        </div> -->
+
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>🔐 License Management</h3>
+                            </div>
+                            <div style="padding:20px">
+                                <!-- License Status Box -->
+                                <div id="lic-info-box"
+                                    style="margin-bottom:20px;background:var(--card2);border-radius:12px;padding:16px;border-left:4px solid var(--green);font-size:13px;line-height:1.9;color:var(--text)">
+                                </div>
+                        
+                                <!-- HWID Section -->
+                                <div class="form-group">
+                                    <label style="color:var(--brand);font-weight:700">🖥️ System HWID</label>
+                                    <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+                                        <input type="text" id="lic-hwid" readonly
+                                            style="font-family:'Courier New',monospace;font-size:12px;color:var(--brand);background:var(--card3);border:1px solid var(--border);padding:10px 12px;border-radius:8px;flex:1;font-weight:600">
+                                        <button class="btn btn-ghost btn-sm" onclick="copyHWID()" style="white-space:nowrap;flex-shrink:0">📋
+                                            Copy</button>
+                                    </div>
+                                    <div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6">📱 Customer WhatsApp this HWID
+                                        to App Owner<br>→ App Owner generates license key<br>→ Paste key below and activate</div>
+                                </div>
+                        
+                                <!-- Separator -->
+                                <div style="border-top:1px solid var(--border);margin:16px 0"></div>
+                        
+                                <!-- Renew Section -->
+                                <div class="form-group">
+                                    <label style="color:var(--brand);font-weight:700">🔑 Activate / Renew License</label>
+                                    <input type="text" id="renew-key" placeholder="RSTR-XXXX-XXXX-XXXX-XXXX"
+                                        style="text-transform:uppercase;margin-top:8px" onfocus="this.select()">
+                                </div>
+                        
+                                <button class="btn btn-primary" style="width:100%" onclick="renewLicense()">✅ Activate License</button>
+                        
+                                <!-- Success/Error Message -->
+                                <div id="renew-msg"
+                                    style="margin-top:14px;font-size:13px;padding:12px 14px;border-radius:8px;display:none;border-left:4px solid"
+                                    hidden></div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>🔒 Change Admin Password</h3>
+                            </div>
+                            <div style="padding:20px">
+                                <div class="form-group"><label>Current Password</label><input type="password"
+                                        id="cp-cur"></div>
+                                <div class="form-group"><label>New Password</label><input type="password" id="cp-new">
+                                </div>
+                                <button class="btn btn-primary" onclick="changePassword()">Change Password</button>
+                                <div id="cp-msg" style="margin-top:10px;font-size:13px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- REPORTS -->
+            <div class="section" id="sec-reports">
+                <div class="toolbar">
+                    <label style="font-size:12px;color:var(--muted);white-space:nowrap">From:</label>
+                    <input type="date" id="report-from" style="flex:unset;width:150px">
+                    <label style="font-size:12px;color:var(--muted);white-space:nowrap">To:</label>
+                    <input type="date" id="report-to" style="flex:unset;width:150px">
+                    <button class="btn btn-primary" onclick="loadReports()">Search</button>
+                    <button class="btn btn-ghost btn-sm" onclick="downloadExcel('reports')">⬇ Excel</button>
+                    <span id="report-summary" style="font-size:13px;color:var(--muted);margin-left:8px"></span>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>📋 Order Records</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Token No.</th>
+                                <th>Table</th>
+                                <th>Waiter</th>
+                                <th>Customer</th>
+                                <th>Items</th>
+                                <th>Amount</th>
+                                <th>Payment</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reports-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- LOGS -->
+            <!-- <div class="section" id="sec-logs"> -->
+
+            <!-- ANALYTICS -->
+            <!-- <div class="section" id="sec-analytics"> -->
+
+            <!-- ANALYTICS -->
+            <div class="section" id="sec-analytics">
+
+                <div class="toolbar">
+                    <label style="font-size:12px;color:var(--muted);white-space:nowrap">From:</label>
+                    <input type="date" id="an-from" style="flex:unset;width:150px">
+                    <label style="font-size:12px;color:var(--muted);white-space:nowrap">To:</label>
+                    <input type="date" id="an-to" style="flex:unset;width:150px">
+                    <button class="btn btn-primary" onclick="loadAnalytics()">Apply</button>
+                    <button class="btn btn-ghost btn-sm" onclick="downloadExcel('range')" style="margin-left:auto">⬇
+                        Excel</button>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="stats-grid" style="margin-bottom:20px">
+                    <div class="stat-card orange">
+                        <div class="stat-icon">🧾</div>
+                        <div class="stat-label">Total Orders</div>
+                        <div class="stat-value" id="an-orders">—</div>
+                        <div class="stat-sub">In selected period</div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-label">Total Revenue</div>
+                        <div class="stat-value" id="an-revenue">—</div>
+                        <div class="stat-sub">Gross earnings</div>
+                    </div>
+                    <div class="stat-card blue">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-label">Avg Order Value</div>
+                        <div class="stat-value" id="an-avg">—</div>
+                        <div class="stat-sub">Per bill</div>
+                    </div>
+                    <div class="stat-card yellow">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-label">Top Item</div>
+                        <div class="stat-value" id="an-topitem" style="font-size:14px;margin-top:4px">—</div>
+                        <div class="stat-sub">Most ordered</div>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <!-- Daily Revenue Chart -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>📈 Daily Revenue</h3>
+                        </div>
+                        <div style="padding:16px">
+                            <!-- <div style="display:flex;align-items:flex-end;gap:3px;height:120px" id="an-daily-chart"></div>
+                            <div style="display:flex;gap:3px;margin-top:4px" id="an-daily-labels"></div> -->
+
+
+                            <div id="an-daily-chart" style="width:100%"></div>
+                            <div id="an-daily-labels"></div>
+
+
+                        </div>
+                    </div>
+
+                    <!-- Payment Breakdown -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>💳 Payment Breakdown</h3>
+                        </div>
+                        <div style="padding:16px" id="an-payment-box"></div>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <!-- Top Items -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>🏆 Top 5 Items</h3>
+                        </div>
+                        <div style="padding:16px" id="an-top-items"></div>
+                    </div>
+
+                    <!-- Monthly Summary -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>📅 Monthly Summary (Last 12 Months)</h3>
+                        </div>
+                        <div style="padding:16px;overflow-x:auto">
+                            <table style="width:100%;font-size:12px">
+                                <thead>
+                                    <tr>
+                                        <th style="padding:6px 8px;text-align:left;color:var(--muted)">Month</th>
+                                        <th style="padding:6px 8px;text-align:right;color:var(--muted)">Orders</th>
+                                        <th style="padding:6px 8px;text-align:right;color:var(--muted)">Revenue</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="an-monthly-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- LOGS -->
+            <div class="section" id="sec-logs">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>🔐 Staff Login History</h3><button class="btn btn-ghost btn-sm"
+                            onclick="loadLogs()">Refresh</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Staff Name</th>
+                                <th>Role</th>
+                                <th>Login At</th>
+                                <th>Logout At</th>
+                                <th>Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logs-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CONTACT / SUPPORT -->
+            <div class="section" id="sec-contact">
+                <div style="max-width:480px;margin:0 auto">
+                    <div class="card" style="overflow:visible">
+                        <div class="card-header">
+                            <h3>🛟 App Support & Contact</h3>
+                        </div>
+                        <div style="padding:28px">
+                            <div style="text-align:center;margin-bottom:28px">
+                                <div
+                                    style="width:72px;height:72px;background:linear-gradient(135deg,var(--brand),#ff9a5c);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px">
+                                    🤖</div>
+                                <div style="font-size:20px;font-weight:800;color:var(--brand)">Nahar AI Technologies
+                                </div>
+                                <div style="font-size:12px;color:var(--muted);margin-top:4px">Mithaas POS — Shop
+                                    Management System</div>
+                            </div>
+                            <div style="display:flex;flex-direction:column;gap:14px">
+                                <div
+                                    style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px">
+                                    <div style="font-size:24px">👨‍💼</div>
+                                    <div>
+                                        <div
+                                            style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px">
+                                            Developer</div>
+                                        <div style="font-size:15px;font-weight:700">Goyam Nahar Jain</div>
+                                    </div>
+                                </div>
+                                <a href="tel:+919407529992" style="text-decoration:none">
+                                    <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:border-color .15s"
+                                        onmouseover="this.style.borderColor='var(--brand)'"
+                                        onmouseout="this.style.borderColor='var(--border)'">
+                                        <div style="font-size:24px">📞</div>
+                                        <div>
+                                            <div
+                                                style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px">
+                                                Phone / WhatsApp</div>
+                                            <div style="font-size:15px;font-weight:700;color:var(--green)">+91 94075
+                                                29992</div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="mailto:naharaitechnologies@gmail.com" style="text-decoration:none">
+                                    <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:border-color .15s"
+                                        onmouseover="this.style.borderColor='var(--brand)'"
+                                        onmouseout="this.style.borderColor='var(--border)'">
+                                        <div style="font-size:24px">✉️</div>
+                                        <div>
+                                            <div
+                                                style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px">
+                                                Email</div>
+                                            <div style="font-size:15px;font-weight:700;color:var(--blue)">
+                                                naharaitechnologies@gmail.com</div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div
+                                    style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;margin-top:4px">
+                                    <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Mithaas Version
+                                    </div>
+                                    <div style="font-size:13px;font-weight:700;color:var(--brand)">v1.0 · 2026</div>
+                                    <div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6">
+                                        Crafted with ❤️ for restaurants<br>by Nahar AI Technologies</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal-overlay" id="add-table-modal">
+        <div class="modal">
+            <h3>Add Table</h3>
+            <div class="form-group"><label>Table Number</label><input type="text" id="t-num"
+                    placeholder="e.g. T1, T2, VIP1"></div>
+            <div class="form-group"><label>Capacity (seats)</label><input type="number" id="t-cap" value="4" min="1">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('add-table-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="addTable()">Add Table</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="add-cat-modal">
+        <div class="modal">
+            <h3>Add Category</h3>
+            <div class="form-group"><label>Category Name</label><input type="text" id="cat-name"
+                    placeholder="e.g. Starters, Main Course, Drinks"></div>
+            <div class="form-group"><label>Sort Order</label><input type="number" id="cat-sort" value="0"></div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('add-cat-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="addCategory()">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="add-staff-modal">
+        <div class="modal">
+            <h3>Add Staff Member</h3>
+            <div class="form-group"><label>Name</label><input type="text" id="st-name"></div>
+            <div class="form-group"><label>Role</label>
+                <select id="st-role">
+                    <option value="waiter">Waiter</option>
+                    <option value="kitchen">Kitchen Staff</option>
+                    <option value="cashier">Cashier</option>
+                </select>
+            </div>
+            <!-- <div class="form-group"><label>Password</label><input type="text" id="st-pwd"></div> -->
+            <div class="form-group"><label>PIN (4 digits)</label><input type="text" id="st-pwd" maxlength="4"
+                    pattern="\d{4}" inputmode="numeric" placeholder="e.g. 1234"></div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('add-staff-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="addStaff()">Add Staff</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal-overlay" id="edit-staff-modal">
+        <div class="modal">
+            <h3>Edit Staff</h3>
+            <input type="hidden" id="es-id">
+            <div class="form-group"><label>Name</label><input type="text" id="es-name"></div>
+            <div class="form-group"><label>Role</label>
+                <select id="es-role">
+                    <option value="waiter">Waiter</option>
+                    <option value="kitchen">Kitchen Staff</option>
+                    <option value="cashier">Cashier</option>
+                </select>
+            </div>
+            <!-- <div class="form-group"><label>PIN / Password</label><input type="text" id="es-pin"></div> -->
+            <div class="form-group"><label>PIN (4 digits)</label><input type="text" id="es-pin" maxlength="4"
+                    pattern="\d{4}" inputmode="numeric" placeholder="e.g. 1234"></div>
+            <div class="form-group"><label>Status</label>
+                <select id="es-active">
+                    <option value="1">Active</option>
+                    <option value="0">Disabled</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('edit-staff-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveEditStaff()">Save</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal-overlay" id="add-menu-modal">
+        <div class="modal">
+            <h3 id="menu-modal-title">Add Menu Item</h3>
+            <input type="hidden" id="m-edit-id">
+            <div class="form-group"><label>Item Name</label><input type="text" id="m-item-name"></div>
+            <div class="form-row">
+                <div class="form-group"><label>Price per Kg (₹)</label><input type="number" id="m-price" step="0.5"></div>
+                <div class="form-group"><label>Category</label><select id="m-cat"></select></div>
+            </div>
+            <div class="form-group"><label>Description</label><input type="text" id="m-desc"></div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('add-menu-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveMenuItem()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="reservation-modal">
+        <div class="modal">
+            <h3>New Reservation</h3>
+            <div class="form-row">
+                <div class="form-group"><label>Customer Name</label><input type="text" id="rv-name"></div>
+                <div class="form-group"><label>Phone</label><input type="text" id="rv-phone"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Table</label><select id="rv-table"></select></div>
+                <div class="form-group"><label>Party Size</label><input type="number" id="rv-party" value="2" min="1">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Date</label><input type="date" id="rv-date"></div>
+                <div class="form-group"><label>Time</label><input type="time" id="rv-time"></div>
+            </div>
+            <div class="form-group"><label>Special Requests</label><input type="text" id="rv-req"></div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('reservation-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveReservation()">Book</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="order-detail-modal">
+        <div class="modal">
+            <h3>Order Items — <span id="od-bill"></span></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody id="od-tbody"></tbody>
+            </table>
+            <div class="modal-footer"><button class="btn btn-ghost"
+                    onclick="closeModal('order-detail-modal')">Close</button></div>
+        </div>
+    </div>
+
+    <script>
+        const $ = id => document.getElementById(id);
+        let menuItems = [], menuCategories = [], staffList = [], tablesList = [];
+        let selectedKDS = 'screen';
+
+        function toIST(dtStr) {
+            if (!dtStr) return '—';
+            const d = new Date(dtStr.includes('T') || dtStr.includes('+') ? dtStr : dtStr.replace(' ', 'T'));
+            return d.toLocaleString('en-IN', { hour12: true, hour: 'numeric', minute: '2-digit', day: 'numeric', month: 'short', timeZone: 'Asia/Kolkata' });
+        }
+
+        // // Nav
+        // function nav(sec) {
+        //     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        //     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        //     $('sec-' + sec).classList.add('active');
+        //     event.currentTarget.classList.add('active');
+        //     $('topbar-title').textContent = event.currentTarget.textContent.trim();
+        //     const loaders = {
+        //         dashboard: loadDashboard, tables: loadTables, reservations: loadReservations,
+        //         categories: loadCategories, menu: loadMenu, staff: loadStaff, kitchen: loadKitchenSettings,
+        //         // settings: loadRestaurantInfo, reports: initReports, logs: loadLogs
+        //         // settings: loadRestaurantInfo, reports: initReports, analytics: initAnalytics, logs: loadLogs
+        //         settings: () => { loadRestaurantInfo(); loadLicenseInfo(); }, reports: initReports, analytics: initAnalytics, logs: loadLogs
+        //     };
+        //     loaders[sec]?.();
+        // }
+
+
+
+
+        function nav(sec) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            $('sec-' + sec).classList.add('active');
+            event.currentTarget.classList.add('active');
+            $('topbar-title').textContent = event.currentTarget.textContent.trim();
+            const loaders = {
+                dashboard: loadDashboard, tables: loadTables, reservations: loadReservations,
+                categories: loadCategories, menu: loadMenu, staff: loadStaff, kitchen: loadKitchenSettings,
+                // settings: () => { loadRestaurantInfo(); loadLicenseInfo(); }, reports: initReports, analytics: initAnalytics, logs: loadLogs
+                settings: () => { loadRestaurantInfo(); loadLicenseInfo(); }, reports: initReports, analytics: initAnalytics, logs: loadLogs, stock: loadStockStatus, contact: () => { }
+            };
+            loaders[sec]?.();
+            if (document.querySelector('.sidebar').classList.contains('open')) toggleSidebar();
+        }
+
+
+
+        // Date
+        $('topbar-date').textContent = new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+
+
+
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('open');
+            document.getElementById('sidebar-overlay').classList.toggle('show');
+        }
+
+
+
+        // // Dashboard
+        // async function loadDashboard() {
+        //     const d = await fetch('/api/admin/stats').then(r => r.json());
+        //     $('d-orders').textContent = d.today_orders;
+        //     $('d-revenue').textContent = '₹' + Number(d.today_revenue).toLocaleString('en-IN', { maximumFractionDigits: 0 });
+        //     $('d-active').textContent = d.active_orders;
+        //     $('d-tables').textContent = d.tables_occupied;
+        //     const rev = await fetch('/api/admin/weekly_revenue').then(r => r.json());
+        //     const max = Math.max(...rev.map(r => r.revenue), 1);
+        //     $('chart-bars').innerHTML = rev.map(r => `<div class="bar" style="height:${Math.max((r.revenue / max) * 70, 3)}px;position:relative" title="₹${Number(r.revenue).toLocaleString()}"><span style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--muted);white-space:nowrap">₹${Number(r.revenue).toLocaleString('en-IN',{maximumFractionDigits:0})}</span></div>`).join('');
+        //     $('chart-labels').innerHTML = rev.map(r => `<div class="bar-label" style="flex:1">${r.date.slice(5)}</div>`).join('');
+        // }
+
+
+        async function loadDashboard() {
+            const d = await fetch('/api/admin/stats').then(r => r.json());
+            $('d-orders').textContent = d.today_orders;
+            $('d-revenue').textContent = '₹' + Number(d.today_revenue).toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            $('d-active').textContent = d.active_orders;
+            $('d-tables').textContent = d.tables_occupied;
+            const rev = await fetch('/api/admin/weekly_revenue').then(r => r.json());
+            renderLineChart(rev);
+        }
+
+        function renderLineChart(rev) {
+            const W = 700, H = 140, PAD = 40;
+            if (!rev.length) { $('chart-bars').innerHTML = '<div style="color:var(--muted);text-align:center;padding:40px;font-size:13px">No data yet</div>'; $('chart-labels').innerHTML = ''; return; }
+            const vals = rev.map(r => parseFloat(r.revenue));
+            const max = Math.max(...vals, 1);
+            const min = 0;
+            const pts = vals.map((v, i) => {
+                const x = PAD + (i / Math.max(rev.length - 1, 1)) * (W - PAD * 2);
+                const y = H - PAD - ((v - min) / (max - min)) * (H - PAD * 1.5);
+                return { x, y, v, d: rev[i].date };
+            });
+            const path = pts.map((p, i) => (i === 0 ? `M${p.x},${p.y}` : `L${p.x},${p.y}`)).join(' ');
+            const area = `M${pts[0].x},${H - PAD} ` + pts.map(p => `L${p.x},${p.y}`).join(' ') + ` L${pts[pts.length - 1].x},${H - PAD} Z`;
+            const dots = pts.map(p => `
+            <circle cx="${p.x}" cy="${p.y}" r="5" fill="var(--brand)" stroke="var(--bg)" stroke-width="2"/>
+            <text x="${p.x}" y="${p.y - 10}" text-anchor="middle" fill="var(--muted2)" font-size="10">₹${Number(p.v).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</text>
+        `).join('');
+            const xLabels = pts.map(p => `<text x="${p.x}" y="${H - 6}" text-anchor="middle" fill="var(--muted)" font-size="10">${p.d.slice(5)}</text>`).join('');
+            const yLines = [0, 0.25, 0.5, 0.75, 1].map(f => {
+                const yy = H - PAD - f * (H - PAD * 1.5);
+                const val = Math.round(f * max);
+                return `<line x1="${PAD}" x2="${W - PAD}" y1="${yy}" y2="${yy}" stroke="var(--border)" stroke-dasharray="4"/>
+                        <text x="${PAD - 6}" y="${yy + 4}" text-anchor="end" fill="var(--muted)" font-size="9">₹${Number(val).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</text>`;
+            }).join('');
+            $('chart-bars').innerHTML = `
+        <svg viewBox="0 0 ${W} ${H}" width="100%" height="160" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+            <defs>
+                <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--brand)" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="var(--brand)" stop-opacity="0"/>
+                </linearGradient>
+            </defs>
+            ${yLines}
+            <path d="${area}" fill="url(#grad)"/>
+            <path d="${path}" fill="none" stroke="var(--brand)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+            ${dots}
+            ${xLabels}
+        </svg>`;
+            $('chart-labels').innerHTML = '';
+        }
+
+
+
+
+        // Tables
+        async function loadTables() {
+            tablesList = await fetch('/api/admin/tables').then(r => r.json());
+            $('tables-grid').innerHTML = tablesList.map(t => `
+    <div class="table-tile ${t.status}">
+      <div class="tnum">${t.table_number}</div>
+      <div class="tcap">👥 ${t.capacity}</div>
+      <div class="tstatus">${t.status}</div>
+    </div>`).join('');
+            $('tables-tbody').innerHTML = tablesList.map(t => `
+    <tr><td><strong>${t.table_number}</strong></td><td>${t.capacity} seats</td>
+    <td><span class="badge ${t.status === 'available' ? 'badge-green' : t.status === 'occupied' ? 'badge-red' : 'badge-yellow'}">${t.status}</span></td>
+    <td><button class="btn btn-danger btn-sm" onclick="deleteTable(${t.id})">Delete</button></td></tr>`).join('');
+        }
+        async function addTable() {
+            await fetch('/api/admin/tables', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table_number: $('t-num').value.trim(), capacity: parseInt($('t-cap').value) }) });
+            closeModal('add-table-modal'); loadTables();
+        }
+        async function deleteTable(id) {
+            if (!confirm('Delete this table?')) return;
+            await fetch(`/api/admin/tables/${id}`, { method: 'DELETE' }); loadTables();
+        }
+
+        // Categories
+        async function loadCategories() {
+            menuCategories = await fetch('/api/admin/categories').then(r => r.json());
+            $('cats-tbody').innerHTML = menuCategories.map(c => `
+    <tr><td><strong>${c.name}</strong></td><td>${c.sort_order}</td>
+    <td><button class="btn btn-danger btn-sm" onclick="deleteCategory(${c.id})">Delete</button></td></tr>`).join('');
+        }
+        async function addCategory() {
+            await fetch('/api/admin/categories', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: $('cat-name').value.trim(), sort_order: parseInt($('cat-sort').value) || 0 }) });
+            closeModal('add-cat-modal'); loadCategories();
+        }
+        async function deleteCategory(id) {
+            if (!confirm('Delete category?')) return;
+            await fetch(`/api/admin/categories/${id}`, { method: 'DELETE' }); loadCategories();
+        }
+
+        // Menu
+        async function loadMenu() {
+            if (!menuCategories.length) menuCategories = await fetch('/api/admin/categories').then(r => r.json());
+            menuItems = await fetch('/api/admin/menu').then(r => r.json());
+            renderMenu(menuItems);
+            // populate filter
+            const cf = $('menu-cat-filter');
+            cf.innerHTML = '<option value="">All Categories</option>';
+            menuCategories.forEach(c => cf.innerHTML += `<option value="${c.id}">${c.name}</option>`);
+        }
+        function renderMenu(items) {
+            $('menu-count').textContent = `${items.length} items`;
+            $('menu-tbody').innerHTML = items.map(m => `
+    <tr>
+      <td><strong>${m.name}</strong>${m.description ? `<br><small style="color:var(--muted)">${m.description}</small>` : ''}</td>
+      <td><span class="badge badge-blue">${m.category_name || '—'}</span></td>
+      <td>₹${parseFloat(m.price).toLocaleString('en-IN')}/kg</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:6px">
+          <input type="number" step="0.25" min="0" placeholder="kg daalo" value="${m.stock_kg != null ? m.stock_kg : ''}"
+            id="stock-inp-${m.id}"
+            style="width:80px;background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text);font-size:12px;outline:none"
+            onkeydown="if(event.key==='Enter') saveStock(${m.id})">
+          <button class="btn btn-primary btn-sm" onclick="saveStock(${m.id})" style="padding:5px 10px;font-size:11px;background:var(--green);white-space:nowrap" title="Save karo">
+            ✓ Save
+          </button>
+        </div>
+      </td>
+      <td><div class="toggle ${m.is_available ? 'on' : ''}" onclick="toggleItem(${m.id},${m.is_available})"></div></td>
+      <td><div class="actions">
+        <button class="btn btn-ghost btn-sm" onclick="openEditMenu(${JSON.stringify(m).replace(/"/g, '&quot;')})">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteMenuItem(${m.id})">Del</button>
+      </div></td>
+    </tr>`).join('');
+        }
+        function filterMenu() {
+            const q = $('menu-search').value.toLowerCase();
+            const cat = $('menu-cat-filter').value;
+            renderMenu(menuItems.filter(m => {
+                const matchQ = m.name.toLowerCase().includes(q);
+                const matchC = !cat || m.category_id == cat;
+                return matchQ && matchC;
+            }));
+        }
+        function openAddMenuModal() {
+            $('menu-modal-title').textContent = 'Add Menu Item';
+            $('m-edit-id').value = '';
+            ['m-item-name', 'm-price', 'm-desc'].forEach(i => $(i).value = '');
+            $('m-cat').innerHTML = menuCategories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+            openModal('add-menu-modal');
+        }
+        function openEditMenu(m) {
+            $('menu-modal-title').textContent = 'Edit Menu Item';
+            $('m-edit-id').value = m.id;
+            $('m-item-name').value = m.name;
+            $('m-price').value = m.price;
+            $('m-desc').value = m.description || '';
+            $('m-cat').innerHTML = menuCategories.map(c => `<option value="${c.id}" ${c.id == m.category_id ? 'selected' : ''}>${c.name}</option>`).join('');
+            openModal('add-menu-modal');
+        }
+        async function saveMenuItem() {
+            const id = $('m-edit-id').value;
+            const data = { name: $('m-item-name').value.trim(), price: parseFloat($('m-price').value), description: $('m-desc').value.trim(), category_id: parseInt($('m-cat').value), is_available: true };
+            if (id) await fetch(`/api/admin/menu/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            else await fetch('/api/admin/menu', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            closeModal('add-menu-modal'); loadMenu();
+        }
+        async function toggleItem(id, current) {
+            const item = menuItems.find(m => m.id == id);
+            await fetch(`/api/admin/menu/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...item, is_available: !current }) });
+            loadMenu();
+        }
+        async function deleteMenuItem(id) {
+            if (!confirm('Delete this item?')) return;
+            await fetch(`/api/admin/menu/${id}`, { method: 'DELETE' }); loadMenu();
+        }
+
+        // Stock
+        async function saveStock(mid) {
+            const val = $(`stock-inp-${mid}`).value;
+            const kg = val === '' ? null : parseFloat(val);
+            const btn = document.querySelector(`#stock-inp-${mid} + button`) || event?.currentTarget;
+            if (btn) { btn.textContent = '⏳'; btn.disabled = true; }
+            await fetch(`/api/admin/menu/${mid}/stock`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ stock_kg: kg }) });
+            if (btn) { btn.textContent = '✓ Save'; btn.disabled = false; }
+            toast('Stock saved ✓'); loadStockStatus();
+        }
+
+        // async function saveStockManagement(mid) {
+        //     const val = $(`stk-kg-${mid}`).value;
+        //     const kg = val === '' ? null : parseFloat(val);
+        //     await fetch(`/api/admin/menu/${mid}/stock`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ stock_kg: kg }) });
+        //     toast('Stock saved ✓ — turant update ho gaya');
+        //     loadStockStatus();
+        // }
+
+
+        // async function saveStockManagement(mid) {
+        //     const val = $(`stk-kg-${mid}`).value;
+        //     const kg = val === '' ? null : parseFloat(val);
+        //     await fetch(`/api/admin/menu/${mid}/stock`, {
+        //         method: 'PUT',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify({ stock_kg: kg })
+        //     });
+        //     toast('Stock saved ✓');
+        //     // Sirf us item ki sold/remaining values refresh karo
+        //     const rows = await fetch('/api/admin/stock_status').then(r => r.json());
+        //     const r = rows.find(x => x.id == mid);
+        //     if (r) {
+        //         const banaya = r.stock_kg != null ? parseFloat(r.stock_kg) : null;
+        //         const bika = parseFloat(r.sold_kg || 0);
+        //         const bacha = banaya != null ? banaya - bika : null;
+        //         const color = bacha === null ? 'var(--muted)' : bacha <= 0 ? 'var(--red)' : bacha < (banaya * 0.2) ? 'var(--yellow)' : 'var(--green)';
+        //         // Row cells update karo — inline
+        //         const row = document.querySelector(`#stk-kg-${mid}`)?.closest('tr');
+        //         if (row) {
+        //             const cells = row.querySelectorAll('td');
+        //             cells[3].innerHTML = banaya != null ? banaya.toFixed(2) + ' kg' : '<span style="color:var(--muted)">Set nahi</span>';
+        //             cells[4].textContent = bika.toFixed(3) + ' kg';
+        //             cells[5].innerHTML = `<span style="color:${color};font-weight:700">${bacha != null ? bacha.toFixed(3) + ' kg' : '—'}</span>`;
+        //             cells[6].innerHTML = banaya == null ? '<span style="color:var(--muted)">—</span>' :
+        //                 bacha <= 0 ? '<span class="badge" style="background:rgba(239,68,68,.15);color:var(--red)">❌ Khatam</span>' :
+        //                     bacha < (banaya * 0.2) ? '<span class="badge badge-yellow">⚠️ Kam</span>' :
+        //                         '<span class="badge badge-green">✅ Available</span>';
+        //         }
+        //     }
+        // }
+
+
+
+
+        async function saveStockManagement(mid) {
+            const inp = $(`stk-kg-${mid}`);
+            const val = inp.value;
+            const kg = val === '' ? null : parseFloat(val);
+            const btn = inp.nextElementSibling;
+            if (btn) { btn.textContent = '⏳'; btn.disabled = true; }
+            await fetch(`/api/admin/menu/${mid}/stock`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ stock_kg: kg })
+            });
+            // Sirf us row ki values update karo — pura page reload nahi
+            const rows = await fetch('/api/admin/stock_status').then(r => r.json());
+            const r = rows.find(x => x.id == mid);
+            if (r) {
+                const banaya = r.stock_kg != null ? parseFloat(r.stock_kg) : null;
+                const bika = parseFloat(r.sold_kg || 0);
+                const bacha = banaya != null ? banaya - bika : null;
+                const color = bacha === null ? 'var(--muted)' : bacha <= 0 ? 'var(--red)' : bacha < (banaya * 0.2) ? 'var(--yellow)' : 'var(--green)';
+                const row = inp.closest('tr');
+                if (row) {
+                    const cells = row.querySelectorAll('td');
+                    cells[3].innerHTML = banaya != null ? banaya.toFixed(2) + ' kg' : '<span style="color:var(--muted)">Set nahi</span>';
+                    cells[4].textContent = bika.toFixed(3) + ' kg';
+                    cells[5].innerHTML = `<span style="color:${color};font-weight:700">${bacha != null ? bacha.toFixed(3) + ' kg' : '—'}</span>`;
+                    cells[6].innerHTML = banaya == null ? '<span style="color:var(--muted)">—</span>' :
+                        bacha <= 0 ? '<span class="badge" style="background:rgba(239,68,68,.15);color:var(--red)">❌ Khatam</span>' :
+                            bacha < (banaya * 0.2) ? '<span class="badge badge-yellow">⚠️ Kam</span>' :
+                                '<span class="badge badge-green">✅ Available</span>';
+                }
+            }
+            if (btn) { btn.textContent = '✓ Save'; btn.disabled = false; }
+            toast('Stock saved ✓');
+        }
+
+
+
+
+
+        async function saveAllStock() {
+            const inputs = document.querySelectorAll('#stock-tbody input[id^="stk-kg-"]');
+            if (!inputs.length) return toast('Koi item nahi', 'error');
+            const btn = document.querySelector('.bulk-save-bar .btn-primary');
+            if (btn) { btn.textContent = '⏳ Saving...'; btn.disabled = true; }
+            let count = 0;
+            for (const inp of inputs) {
+                const mid = inp.id.replace('stk-kg-', '');
+                const kg = inp.value === '' ? null : parseFloat(inp.value);
+                await fetch(`/api/admin/menu/${mid}/stock`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ stock_kg: kg }) });
+                count++;
+            }
+            if (btn) { btn.textContent = '💾 Save All Stock'; btn.disabled = false; }
+            toast(`✓ ${count} items ka stock save ho gaya!`); loadStockStatus();
+        }
+
+        // async function loadStockStatus() {
+        //     const rows = await fetch('/api/admin/stock_status').then(r => r.json());
+        //     $('stock-tbody').innerHTML = rows.map(r => {
+        //         const banaya = r.stock_kg != null ? parseFloat(r.stock_kg) : null;
+        //         const bika = parseFloat(r.sold_today_kg || 0);
+        //         const bacha = banaya != null ? Math.max(0, banaya - bika) : null;
+
+
+        async function loadStockStatus() {
+            const rows = await fetch('/api/admin/stock_status').then(r => r.json());
+            // Bulk save button dikhao table ke upar
+            const bulkBtn = document.querySelector('#sec-stock .bulk-save-bar');
+            if (!bulkBtn) {
+                const bar = document.createElement('div');
+                bar.className = 'bulk-save-bar';
+                bar.style.cssText = 'padding:12px 16px;background:rgba(255,107,53,0.08);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px';
+                // bar.innerHTML = `
+                //     <div style="font-size:12px;color:var(--muted2)">
+                //         💡 <strong style="color:var(--text)">Naya maal banao</strong> — kg enter karo aur Save karo. Jab naya maal banao tab hi update karo, har roz nahi.
+                //     </div>
+                //     <button class="btn btn-primary" onclick="saveAllStock()" style="white-space:nowrap;flex-shrink:0">
+                //         💾 Save All Stock
+                //     </button>`;
+
+
+                bar.innerHTML = `
+                    <div style="font-size:12px;color:var(--muted2)">
+                        💡 <strong style="color:var(--text)">Naya maal banao</strong> — kg enter karo aur Save karo. Jab naya maal banao tab hi update karo, har roz nahi.
+                    </div>`;
+
+                    
+                const card = document.querySelector('#sec-stock .card');
+                const tableWrapper = card.querySelector('[style*="overflow-x"]');
+                card.insertBefore(bar, tableWrapper);
+            }
+            $('stock-tbody').innerHTML = rows.map(r => {
+                const banaya = r.stock_kg != null ? parseFloat(r.stock_kg) : null;
+                const bika = parseFloat(r.sold_kg || 0);
+                const bacha = banaya != null ? banaya - bika : null;
+
+
+        //         const pct = banaya ? (bika / banaya) * 100 : 0;
+        //         const color = bacha === null ? 'var(--muted)' : bacha <= 0 ? 'var(--red)' : bacha < (banaya * 0.2) ? 'var(--yellow)' : 'var(--green)';
+        //         return `<tr>
+        //           <td><strong>${r.name}</strong></td>
+        //           <td><span class="badge badge-blue">${r.category_name || '—'}</span></td>
+        //           <td>₹${parseFloat(r.price).toFixed(0)}/kg</td>
+        //           <td>${banaya != null ? banaya.toFixed(2)+' kg' : '<span style="color:var(--muted)">Set nahi</span>'}</td>
+        //           <td>${bika.toFixed(3)} kg</td>
+        //           <td style="color:${color};font-weight:700">${bacha != null ? bacha.toFixed(3)+' kg' : '—'}</td>
+        //           <td>
+        //             ${banaya == null ? '<span style="color:var(--muted)">—</span>' :
+        //               bacha <= 0 ? '<span class="badge" style="background:rgba(239,68,68,.15);color:var(--red)">❌ Khatam</span>' :
+        //               bacha < (banaya * 0.2) ? '<span class="badge badge-yellow">⚠️ Kam</span>' :
+        //               '<span class="badge badge-green">✅ Available</span>'}
+        //           </td>
+        //           <td><button class="btn btn-ghost btn-sm" onclick="openStockEdit(${r.id},'${r.name}',${banaya ?? 'null'})">Edit</button></td>
+        //         </tr>`;
+        //     }).join('');
+        // }
+
+
+                const pct = banaya ? (bika / banaya) * 100 : 0;
+                const color = bacha === null ? 'var(--muted)' : bacha <= 0 ? 'var(--red)' : bacha < (banaya * 0.2) ? 'var(--yellow)' : 'var(--green)';
+                return `<tr>
+                <td><strong>${r.name}</strong></td>
+                <td><span class="badge badge-blue">${r.category_name || '—'}</span></td>
+                <td>₹${parseFloat(r.price).toFixed(0)}/kg</td>
+                <td>${banaya != null ? banaya.toFixed(2)+' kg' : '<span style="color:var(--muted)">Set nahi</span>'}</td>
+                <td>${bika.toFixed(3)} kg</td>
+                <td style="color:${color};font-weight:700">${bacha != null ? bacha.toFixed(3)+' kg' : '—'}</td>
+                <td>
+                    ${banaya == null ? '<span style="color:var(--muted)">—</span>' :
+                    bacha <= 0 ? '<span class="badge" style="background:rgba(239,68,68,.15);color:var(--red)">❌ Khatam</span>' :
+                    bacha < (banaya * 0.2) ? '<span class="badge badge-yellow">⚠️ Kam</span>' :
+                    '<span class="badge badge-green">✅ Available</span>'}
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;gap:6px">
+                        <input type="number" step="0.25" min="0" placeholder="kg" value="${banaya != null ? banaya : ''}"
+                            id="stk-kg-${r.id}"
+                            style="width:75px;background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text);font-size:12px;outline:none"
+                            onkeydown="if(event.key==='Enter') saveStockManagement(${r.id})">
+                        <button class="btn btn-primary btn-sm" onclick="saveStockManagement(${r.id})" style="padding:5px 10px;font-size:11px;background:var(--green);white-space:nowrap">✓ Save</button>
+                    </div>
+                </td>
+                </tr>`;
+            }).join('');
+        }
+
+        function openStockEdit(mid, name, current) {
+            const kg = prompt(`${name} — Aaj kitna banaya? (kg mein)\nAbhi: ${current != null ? current + ' kg' : 'set nahi'}`);
+            if (kg === null) return;
+            const val = parseFloat(kg);
+            fetch(`/api/admin/menu/${mid}/stock`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ stock_kg: isNaN(val) ? null : val }) })
+              .then(() => { toast('Stock updated ✓'); loadStockStatus(); });
+        }
+
+        // Staff
+        async function loadStaff() {
+            staffList = await fetch('/api/admin/staff').then(r => r.json());
+            const waiters = staffList.filter(s => s.role === 'waiter');
+            const kitchen = staffList.filter(s => s.role === 'kitchen');
+            const cashiers = staffList.filter(s => s.role === 'cashier');
+            const renderStaff = (list, tbid) => {
+                $(tbid).innerHTML = list.map(s => `
+      <tr>
+        <td><strong>${s.name}</strong></td>
+        <td><code style="font-size:11px;color:var(--muted)">${s.pin}</code></td>
+        <td><span class="badge ${s.is_active ? 'badge-green' : 'badge-red'}">${s.is_active ? 'Active' : 'Off'}</span></td>
+        <td><div class="actions">
+          <button class="btn btn-ghost btn-sm" onclick="openEditStaff(${JSON.stringify(s).replace(/"/g, '&quot;')})">Edit</button>
+          <button class="btn btn-ghost btn-sm" onclick="toggleStaff(${s.id},${s.is_active})">${s.is_active ? 'Disable' : 'Enable'}</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteStaff(${s.id})">Del</button>
+        </div></td>
+      </tr>`).join('');
+            };
+            renderStaff(waiters, 'waiter-tbody');
+            renderStaff(kitchen, 'kitchen-tbody');
+            renderStaff(cashiers, 'cashier-tbody');
+        }
+        async function addStaff() {
+            const pin = $('st-pwd').value.trim();
+            if (!/^\d{4}$/.test(pin)) { alert('PIN exactly 4 digits hona chahiye!'); return; }
+            await fetch('/api/admin/staff', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: $('st-name').value.trim(), role: $('st-role').value, pin }) });
+            closeModal('add-staff-modal'); loadStaff();
+        }
+
+        function openEditStaff(s) {
+            $('es-id').value = s.id;
+            $('es-name').value = s.name;
+            $('es-role').value = s.role;
+            $('es-pin').value = s.pin;
+            $('es-active').value = s.is_active;
+            openModal('edit-staff-modal');
+        }
+        async function saveEditStaff() {
+            const pin = $('es-pin').value.trim();
+            if (!/^\d{4}$/.test(pin)) { alert('PIN exactly 4 digits hona chahiye!'); return; }
+            const id = $('es-id').value;
+            await fetch(`/api/admin/staff/${id}`, {
+                method: 'PUT', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: $('es-name').value.trim(), role: $('es-role').value, pin, is_active: parseInt($('es-active').value) })
+            });
+            closeModal('edit-staff-modal'); loadStaff();
+        }
+
+
+        async function toggleStaff(id, active) {
+            const s = staffList.find(x => x.id == id);
+            await fetch(`/api/admin/staff/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...s, is_active: !active }) });
+            loadStaff();
+        }
+        async function deleteStaff(id) {
+            if (!confirm('Remove this staff member?')) return;
+            await fetch(`/api/admin/staff/${id}`, { method: 'DELETE' }); loadStaff();
+        }
+
+        // Kitchen
+        async function loadKitchenSettings() {
+            const d = await fetch('/api/admin/kitchen_settings').then(r => r.json());
+            selectedKDS = d.display_type;
+            document.querySelectorAll('#kds-pills .radio-pill').forEach(p => {
+                p.classList.toggle('selected', p.dataset.val === selectedKDS);
+            });
+        }
+        function selectKDS(el) {
+            selectedKDS = el.dataset.val;
+            document.querySelectorAll('#kds-pills .radio-pill').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+        async function saveKitchenSettings() {
+            await fetch('/api/admin/kitchen_settings', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ display_type: selectedKDS }) });
+            alert('Kitchen settings saved!');
+        }
+
+        // Restaurant Info
+        // async function loadRestaurantInfo() {
+        //     const d = await fetch('/api/admin/restaurant_info').then(r => r.json());
+        //     $('rs-name').value = d.name; $('rs-phone').value = d.phone || ''; $('rs-address').value = d.address || ''; $('rs-gst').value = d.gst_number || '';
+        // }
+
+
+        // async function loadRestaurantInfo() {
+        //     const d = await fetch('/api/admin/restaurant_info').then(r => r.json());
+        //     const gst = await fetch('/api/admin/gst_settings').then(r => r.json());
+        //     $('rs-name').value = d.name;
+        //     $('rs-phone').value = d.phone || '';
+        //     $('rs-address').value = d.address || '';
+        //     $('rs-gst').value = d.gst_number || '';
+        //     $('rs-gst-pct').value = gst.gst_percentage || 5.0;
+
+        //     // Check toggle state from localStorage
+        //     const gstOn = localStorage.getItem('gst_display') !== 'false';
+        //     $('gst-toggle').classList.toggle('on', gstOn);
+        // }
+
+
+
+
+
+        async function loadRestaurantInfo() {
+            const d = await fetch('/api/admin/restaurant_info').then(r => r.json());
+            const gst = await fetch('/api/admin/gst_settings').then(r => r.json());
+            $('rs-name').value = d.name;
+            $('rs-phone').value = d.phone || '';
+            $('rs-address').value = d.address || '';
+            $('rs-gst').value = d.gst_number || '';
+            $('rs-gst-pct').value = gst.gst_percentage || 5.0;
+
+            // Toggle state backend se lo (localStorage fallback)
+            const gstOn = gst.gst_enabled !== undefined ? Boolean(gst.gst_enabled) : (localStorage.getItem('gst_display') !== 'false');
+            $('gst-toggle').classList.toggle('on', gstOn);
+            localStorage.setItem('gst_display', gstOn ? 'true' : 'false');
+
+            // Load license info
+            await loadLicenseInfo();
+        }
+
+        async function loadLicenseInfo() {
+            try {
+                const lic = await fetch('/api/license_status').then(r => r.json());
+                const hwid = await fetch('/api/hwid').then(r => r.json()).then(d => d.hwid);
+
+                // Set HWID
+                $('lic-hwid').value = hwid;
+
+                // Build License Info Box
+                let licHTML = '';
+                if (lic.valid) {
+                    const expiryDate = new Date(lic.expiry);
+                    const formattedDate = expiryDate.toLocaleDateString('en-IN', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    });
+
+                    const daysClass = lic.days_left <= 7 ? 'var(--yellow)' : 'var(--green)';
+
+                    licHTML = `
+            <div style="color:var(--green)">
+                <div style="font-weight:700;font-size:15px;margin-bottom:10px">✅ License Active</div>
+                <div style="margin-bottom:8px">
+                    <strong>Expires:</strong> <span style="color:${daysClass}">${formattedDate}</span>
+                </div>
+                <div style="margin-bottom:8px">
+                    <strong>Days Left:</strong> <span style="color:${daysClass};font-weight:700">${lic.days_left} days</span>
+                </div>
+                <div>
+                    <strong>System Match:</strong> 
+                    <span style="color:${lic.hwid_match ? 'var(--green)' : 'var(--red)'}">
+                        ${lic.hwid_match ? '✓ Matched' : '✗ Not Matched'}
+                    </span>
+                </div>
+                ${lic.expiring_soon ? `
+                    <div style="margin-top:10px;padding:8px;background:rgba(245,158,11,0.2);border-radius:6px;color:var(--yellow);font-weight:600">
+                        ⚠️ License expiring soon - renew now!
+                    </div>
+                ` : ''}
+            </div>
+        `;
+                } else {
+                    licHTML = `
+            <div style="color:var(--red)">
+                <div style="font-weight:700;font-size:15px;margin-bottom:10px">❌ License Expired</div>
+                <div style="margin-bottom:8px">
+                    <strong>Status:</strong> <span style="color:var(--red)">Expired or Not Activated</span>
+                </div>
+                <div style="margin-top:10px;padding:8px;background:rgba(239,68,68,0.2);border-radius:6px;color:var(--red)">
+                    🔒 Please renew your license to continue using Mithaas
+                </div>
+            </div>
+        `;
+                }
+
+                $('lic-info-box').innerHTML = licHTML;
+
+            } catch (err) {
+                console.error('License load error:', err);
+                $('lic-info-box').innerHTML = '<div style="color:var(--red)">⚠️ Error loading license info</div>';
+            }
+        }
+
+        // function copyHWID() {
+        //     const hwid = $('lic-hwid').value;
+        //     if (!hwid) return;
+        //     navigator.clipboard.writeText(hwid).then(() => {
+        //         const btn = event.target;
+        //         const originalText = btn.textContent;
+        //         btn.textContent = '✓ Copied!';
+        //         btn.style.color = 'var(--green)';
+        //         setTimeout(() => {
+        //             btn.textContent = originalText;
+        //             btn.style.color = '';
+        //         }, 2000);
+        //     }).catch(() => {
+        //         alert('Failed to copy HWID');
+        //     });
+        // }
+
+
+
+        function copyHWID() {
+            const input = document.getElementById('lic-hwid');
+
+            if (!input.value) return;
+
+            input.removeAttribute('readonly');
+            input.select();
+            input.setSelectionRange(0, 99999);
+
+            document.execCommand('copy');
+
+            input.setAttribute('readonly', true);
+
+            alert('✅ HWID Copied');
+        }
+
+
+
+        async function renewLicense() {
+            const key = $('renew-key').value.trim().toUpperCase();
+            if (!key) {
+                alert('Please enter the license key first');
+                return;
+            }
+
+            const btn = event.target;
+            const msgBox = $('renew-msg');
+
+            btn.disabled = true;
+            btn.textContent = '⏳ Verifying License...';
+
+            try {
+                const res = await fetch('/api/admin/renew_license', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ key })
+                }).then(r => r.json());
+
+                msgBox.hidden = false;
+
+                if (res.ok) {
+                    const expiryDate = new Date(res.expiry);
+                    const formattedDate = expiryDate.toLocaleDateString('en-IN', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    });
+
+                    msgBox.style.background = 'rgba(34,197,94,0.15)';
+                    msgBox.style.color = 'var(--green)';
+                    msgBox.style.borderLeftColor = 'var(--green)';
+                    msgBox.innerHTML = `
+            <div style="font-weight:700;margin-bottom:8px">✅ License Activated Successfully!</div>
+            <div>Your plan is now valid until <strong>${formattedDate}</strong></div>
+        `;
+
+                    $('renew-key').value = '';
+                    btn.textContent = '✅ License Active';
+                    btn.style.background = 'var(--green)';
+
+                    // Reload license info after 2 seconds
+                    setTimeout(() => {
+                        loadLicenseInfo();
+                        btn.disabled = false;
+                        btn.textContent = '✅ Activate License';
+                        btn.style.background = '';
+                    }, 2000);
+                } else {
+                    msgBox.style.background = 'rgba(239,68,68,0.15)';
+                    msgBox.style.color = 'var(--red)';
+                    msgBox.style.borderLeftColor = 'var(--red)';
+                    msgBox.innerHTML = `
+            <div style="font-weight:700;margin-bottom:4px">❌ Invalid License Key</div>
+            <div>${res.msg || 'The license key you entered is not valid'}</div>
+        `;
+
+                    btn.disabled = false;
+                    btn.textContent = '✅ Activate License';
+                }
+            } catch (err) {
+                msgBox.style.background = 'rgba(239,68,68,0.15)';
+                msgBox.style.color = 'var(--red)';
+                msgBox.style.borderLeftColor = 'var(--red)';
+                msgBox.innerHTML = `<div style="font-weight:700">❌ Error verifying license</div>`;
+                msgBox.hidden = false;
+
+                btn.disabled = false;
+                btn.textContent = '✅ Activate License';
+            }
+        }
+
+
+
+        async function changePassword() {
+            const curPwd = $('cp-cur').value;
+            const newPwd = $('cp-new').value;
+
+            if (!curPwd || !newPwd) {
+                alert('Please enter both current and new password');
+                return;
+            }
+
+            if (newPwd.length < 6) {
+                alert('New password must be at least 6 characters');
+                return;
+            }
+
+            const btn = event.target;
+            const msgBox = $('cp-msg');
+
+            btn.disabled = true;
+            btn.textContent = '⏳ Changing...';
+
+            try {
+                const res = await fetch('/api/admin/change_password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        current_password: curPwd,
+                        new_password: newPwd
+                    })
+                }).then(r => r.json());
+
+                msgBox.style.display = 'block';
+
+                if (res.ok) {
+                    msgBox.style.background = 'rgba(34,197,94,0.15)';
+                    msgBox.style.color = 'var(--green)';
+                    msgBox.style.borderLeft = '3px solid var(--green)';
+                    msgBox.innerHTML = `
+            <div style="font-weight:700;margin-bottom:4px">✅ Password Changed Successfully</div>
+            <div>Your admin password has been updated. Please login again.</div>
+        `;
+
+                    $('cp-cur').value = '';
+                    $('cp-new').value = '';
+                    btn.textContent = '✅ Password Changed';
+
+                    // Redirect to login after 3 seconds
+                    setTimeout(() => {
+                        window.location.href = '/login';
+                    }, 3000);
+                } else {
+                    msgBox.style.background = 'rgba(239,68,68,0.15)';
+                    msgBox.style.color = 'var(--red)';
+                    msgBox.style.borderLeft = '3px solid var(--red)';
+                    msgBox.innerHTML = `
+            <div style="font-weight:700;margin-bottom:4px">❌ Password Change Failed</div>
+            <div>${res.msg || 'Current password is incorrect'}</div>
+        `;
+
+                    btn.disabled = false;
+                    btn.textContent = 'Change Password';
+                }
+            } catch (err) {
+                msgBox.style.background = 'rgba(239,68,68,0.15)';
+                msgBox.style.color = 'var(--red)';
+                msgBox.style.borderLeft = '3px solid var(--red)';
+                msgBox.innerHTML = '<div style="font-weight:700">❌ Error changing password</div>';
+                msgBox.style.display = 'block';
+
+                btn.disabled = false;
+                btn.textContent = 'Change Password';
+            }
+        }
+
+
+
+
+
+        async function toggleGSTDisplay() {
+            const toggle = $('gst-toggle');
+            toggle.classList.toggle('on');
+            const isOn = toggle.classList.contains('on');
+            localStorage.setItem('gst_display', isOn ? 'true' : 'false');
+            // Backend mein bhi save karo
+            const gstPct = parseFloat($('rs-gst-pct').value) || 5.0;
+            const gstNum = $('rs-gst').value || '';
+            await fetch('/api/admin/gst_settings', {
+                method: 'PUT', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ gst_percentage: gstPct, gst_number: gstNum, gst_enabled: isOn })
+            });
+            toast(isOn ? '✅ GST ON — calculations mein add hoga' : '❌ GST OFF — bills mein nahi aayega');
+        }
+
+
+        async function saveRestaurantInfo() {
+            await fetch('/api/admin/restaurant_info', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: $('rs-name').value, phone: $('rs-phone').value, address: $('rs-address').value, gst_number: $('rs-gst').value }) });
+            await fetch('/api/admin/gst_settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ gst_percentage: parseFloat($('rs-gst-pct').value), gst_number: $('rs-gst').value }) });
+            alert('Saved!');
+            $('rest-name-sidebar').textContent = $('rs-name').value;
+            $('sidebar-rest').textContent = $('rs-name').value;
+        }
+
+        // Reservations
+        async function loadReservations() {
+            if (!tablesList.length) tablesList = await fetch('/api/admin/tables').then(r => r.json());
+            const rows = await fetch('/api/admin/reservations').then(r => r.json());
+            $('res-tbody').innerHTML = rows.map(r => `
+    <tr>
+      <td><strong>${r.customer_name}</strong></td>
+      <td>${r.customer_phone || '—'}</td>
+      <td>Table ${r.table_number}</td>
+      <td>${r.reservation_date}</td>
+      <td>${r.reservation_time?.slice(0, 5)}</td>
+      <td>${r.party_size}</td>
+      <td><span class="badge ${r.status === 'confirmed' ? 'badge-green' : r.status === 'cancelled' ? 'badge-red' : 'badge-yellow'}">${r.status}</span></td>
+      <td><div class="actions">
+        <button class="btn btn-sm btn-success" onclick="updateResStatus(${r.id},'arrived')">Arrived</button>
+        <button class="btn btn-sm btn-danger" onclick="updateResStatus(${r.id},'cancelled')">Cancel</button>
+      </div></td>
+    </tr>`).join('');
+        }
+        function openReservationModal() {
+            if (!tablesList.length) { loadTables().then(() => openReservationModal()); return; }
+            $('rv-table').innerHTML = tablesList.map(t => `<option value="${t.id}">Table ${t.table_number}</option>`).join('');
+            $('rv-date').value = new Date().toISOString().slice(0, 10);
+            openModal('reservation-modal');
+        }
+        async function saveReservation() {
+            const res = await fetch('/api/admin/reservations', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+                    table_id: parseInt($('rv-table').value), customer_name: $('rv-name').value.trim(),
+                    customer_phone: $('rv-phone').value.trim(), party_size: parseInt($('rv-party').value),
+                    reservation_date: $('rv-date').value, reservation_time: $('rv-time').value,
+                    special_requests: $('rv-req').value.trim()
+                })
+            }).then(r => r.json());
+            if (!res.ok) return alert(res.msg);
+            closeModal('reservation-modal'); loadReservations();
+        }
+        async function updateResStatus(id, status) {
+            await fetch(`/api/admin/reservations/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
+            loadReservations();
+        }
+
+        // Reports
+        function initReports() {
+            const today = new Date().toISOString().slice(0, 10);
+            $('report-from').value = today; $('report-to').value = today;
+            loadReports();
+        }
+        async function loadReports() {
+            const from = $('report-from').value, to = $('report-to').value;
+            const rows = await fetch(`/api/admin/reports/orders?from=${from}&to=${to}`).then(r => r.json());
+            const total = rows.filter(r => r.status === 'completed').reduce((s, r) => s + parseFloat(r.total_amount || 0), 0);
+            $('report-summary').textContent = `${rows.length} orders · ₹${total.toLocaleString('en-IN', { maximumFractionDigits: 0 })} revenue`;
+            $('reports-tbody').innerHTML = rows.map(r => {
+          // Fetch items for this order to show details
+          return `<tr><td colspan="9" style="padding:0;border:none"><div style="padding:11px 16px"><div style="display:flex;gap:16px;margin-bottom:8px"><div style="flex:1"><code style="font-size:11px;color:var(--brand)">Token #${r.token_number || '—'}</code> | Table ${r.table_number || '—'} | ${r.waiter_name || '—'}</div><div style="font-size:13px;font-weight:700">${r.customer_name || 'Guest'} ${r.customer_mobile ? '📱 ' + r.customer_mobile : ''}</div><div style="font-size:13px;color:var(--green);font-weight:700">₹${parseFloat(r.total_amount || 0).toLocaleString('en-IN')}</div><div style="font-size:11px;color:var(--muted)">${toIST(r.created_at)} | ${r.payment_mode || '—'}</div></div></div><button class="btn btn-ghost btn-sm" onclick="viewOrderItems(${r.id},'${r.token_number}')" style="margin:0 16px">View Items →</button></td></tr>`;
+        }).join('');
+        }
+        async function viewOrderItems(oid, token) {
+            const items = await fetch(`/api/admin/reports/order/${oid}/items`).then(r => r.json());
+            $('od-bill').textContent = 'Token #' + token;
+            $('od-tbody').innerHTML = items.map(i => `<tr><td>${i.item_name}</td><td>${i.quantity}</td><td>₹${parseFloat(i.price).toFixed(0)}</td><td>₹${(i.quantity * parseFloat(i.price)).toFixed(0)}</td><td style="font-size:11px;color:var(--muted)">${i.special_instruction || '—'}</td></tr>`).join('');
+            openModal('order-detail-modal');
+        }
+
+        // Logs
+        async function loadLogs() {
+            const rows = await fetch('/api/admin/login_logs').then(r => r.json());
+            $('logs-tbody').innerHTML = rows.map(r => {
+                // const login = new Date(r.login_at.replace(' ', 'T') + '+05:30');
+                // const logout = r.logout_at ? new Date(r.logout_at.replace(' ', 'T') + '+05:30') : null;
+
+
+                const login = new Date(r.login_at.includes('T') || r.login_at.includes('+') ? r.login_at : r.login_at.replace(' ', 'T'));
+                const logout = r.logout_at ? new Date(r.logout_at.includes('T') || r.logout_at.includes('+') ? r.logout_at : r.logout_at.replace(' ', 'T')) : null;
+
+
+                const dur = logout ? Math.round((logout - login) / 60000) + 'm' : 'Active';
+                return `<tr>
+      <td><strong>${r.staff_name || 'Admin'}</strong></td>
+      <td><span class="badge ${r.role === 'waiter' ? 'badge-blue' : 'badge-orange'}">${r.role}</span></td>
+      <td style="font-size:12px">${toIST(r.login_at)}</td>
+      <td style="font-size:12px">${r.logout_at ? toIST(r.logout_at) : '—'}</td>
+      <td><span class="badge ${r.logout_at ? 'badge-green' : 'badge-yellow'}">${dur}</span></td>
+    </tr>`;
+            }).join('');
+        }
+
+        // Modal helpers
+        function openModal(id) { $(id).classList.add('show'); }
+        function closeModal(id) { $(id).classList.remove('show'); }
+        document.querySelectorAll('.modal-overlay').forEach(m => m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show') }));
+
+        // Load restaurant name
+        fetch('/api/admin/restaurant_info').then(r => r.json()).then(d => {
+            $('rest-name-sidebar').textContent = d.name;
+            $('sidebar-rest').textContent = d.name;
+        });
+
+
+
+
+        // Analytics
+        async function loadAnalytics() {
+            const from = $('an-from').value, to = $('an-to').value;
+            const d = await fetch(`/api/admin/analytics?from=${from}&to=${to}`).then(r => r.json());
+
+            // KPIs
+            $('an-orders').textContent = d.total_orders;
+            $('an-revenue').textContent = '₹' + Number(d.total_revenue).toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            $('an-avg').textContent = '₹' + Number(d.avg_order).toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            $('an-topitem').textContent = d.top_item || '—';
+
+            // // Daily chart
+            // const daily = d.daily_revenue || [];
+            // const maxRev = Math.max(...daily.map(r => r.revenue), 1);
+            // $('an-daily-chart').innerHTML = daily.map(r =>
+            //     `<div style="flex:1;background:var(--brand);border-radius:3px 3px 0 0;height:${Math.max((r.revenue / maxRev) * 116, 2)}px;opacity:0.85;min-width:8px" title="₹${Number(r.revenue).toLocaleString()}"></div>`
+            // ).join('');
+            // $('an-daily-labels').innerHTML = daily.map(r =>
+            //     `<div style="flex:1;font-size:8px;color:var(--muted);text-align:center;min-width:8px">${r.date?.slice(5) || ''}</div>`
+            // ).join('');
+
+
+
+            // Daily chart — line chart
+            const daily = d.daily_revenue || [];
+            if (daily.length) {
+                const W2 = 600, H2 = 120, P2 = 36;
+                const vals2 = daily.map(r => parseFloat(r.revenue));
+                const max2 = Math.max(...vals2, 1);
+                const pts2 = vals2.map((v, i) => ({
+                    x: P2 + (i / Math.max(daily.length - 1, 1)) * (W2 - P2 * 2),
+                    y: H2 - P2 - ((v / max2) * (H2 - P2 * 1.4)),
+                    v, d: daily[i].date
+                }));
+                const path2 = pts2.map((p, i) => (i === 0 ? `M${p.x},${p.y}` : `L${p.x},${p.y}`)).join(' ');
+                const area2 = `M${pts2[0].x},${H2 - P2} ` + pts2.map(p => `L${p.x},${p.y}`).join(' ') + ` L${pts2[pts2.length - 1].x},${H2 - P2} Z`;
+                const dots2 = pts2.map(p => `<circle cx="${p.x}" cy="${p.y}" r="4" fill="var(--brand)" stroke="var(--bg)" stroke-width="2"/><text x="${p.x}" y="${p.y - 8}" text-anchor="middle" fill="var(--muted2)" font-size="9">₹${Number(p.v).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</text>`).join('');
+                const xlabels2 = pts2.map(p => `<text x="${p.x}" y="${H2 - 4}" text-anchor="middle" fill="var(--muted)" font-size="9">${p.d?.slice(5) || ''}</text>`).join('');
+                $('an-daily-chart').innerHTML = `<svg viewBox="0 0 ${W2} ${H2}" width="100%" height="130" style="overflow:visible"><defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--brand)" stop-opacity="0.3"/><stop offset="100%" stop-color="var(--brand)" stop-opacity="0"/></linearGradient></defs><path d="${area2}" fill="url(#g2)"/><path d="${path2}" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linejoin="round"/>${dots2}${xlabels2}</svg>`;
+                $('an-daily-labels').innerHTML = '';
+            } else {
+                $('an-daily-chart').innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:30px">No data</div>';
+                $('an-daily-labels').innerHTML = '';
+            }
+
+
+
+            // Payment breakdown
+            const pay = d.payment_breakdown || [];
+            const totalPay = pay.reduce((s, p) => s + parseFloat(p.total || 0), 0);
+            const payColors = { cash: '#22c55e', online: '#3b82f6', card: '#a855f7', other: '#f59e0b' };
+            const payIcons = { cash: '💵', online: '📱', card: '💳', other: '🔖' };
+            // Donut SVG
+            let donutSegs = '', offset = 0;
+            const r = 54, circ = 2 * Math.PI * r;
+            pay.forEach(p => {
+                const pct = totalPay > 0 ? parseFloat(p.total) / totalPay : 0;
+                const color = payColors[p.payment_mode] || '#888';
+                donutSegs += `<circle cx="64" cy="64" r="${r}" fill="none" stroke="${color}" stroke-width="18" stroke-dasharray="${pct * circ} ${circ}" stroke-dashoffset="${-offset * circ}" transform="rotate(-90 64 64)"/>`;
+                offset += pct;
+            });
+            $('an-payment-box').innerHTML = pay.length ? `
+            <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+                <svg width="128" height="128" viewBox="0 0 128 128" style="flex-shrink:0">
+                    <circle cx="64" cy="64" r="54" fill="none" stroke="var(--card3)" stroke-width="18"/>
+                    ${donutSegs}
+                    <text x="64" y="68" text-anchor="middle" fill="var(--text)" font-size="11" font-weight="700">₹${Number(totalPay).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</text>
+                </svg>
+                <div style="flex:1;min-width:120px">
+                ${pay.map(p => {
+                const pct = totalPay > 0 ? Math.round((parseFloat(p.total) / totalPay) * 100) : 0;
+                const color = payColors[p.payment_mode] || '#888';
+                const icon = payIcons[p.payment_mode] || '🔖';
+                return `<div style="margin-bottom:10px">
+                        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
+                            <span style="font-weight:600">${icon} ${(p.payment_mode || 'Unknown').toUpperCase()}</span>
+                            <span style="color:${color}">${pct}%</span>
+                        </div>
+                        <div style="background:var(--card3);border-radius:4px;height:6px">
+                            <div style="background:${color};height:6px;border-radius:4px;width:${pct}%"></div>
+                        </div>
+                        <div style="font-size:11px;color:var(--muted);margin-top:2px">₹${Number(p.total).toLocaleString('en-IN', { maximumFractionDigits: 0 })} · ${p.count} orders</div>
+                    </div>`;
+            }).join('')}
+                </div>
+            </div>` : '<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px">No data</div>';
+
+            // Top items
+            const items = d.top_items || [];
+            const maxQty = Math.max(...items.map(i => i.total_qty), 1);
+            $('an-top-items').innerHTML = items.length ? items.map((item, idx) => {
+                const pct = Math.round((item.total_qty / maxQty) * 100);
+                const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+                return `<div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
+            <span>${medals[idx]} <strong>${item.item_name}</strong></span>
+            <span style="color:var(--muted)">${item.total_qty} sold · ₹${Number(item.total_rev).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
+        </div>
+        <div style="background:var(--card3);border-radius:4px;height:6px">
+            <div style="background:var(--green);height:6px;border-radius:4px;width:${pct}%"></div>
+        </div>
+    </div>`;
+            }).join('') : '<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px">No data</div>';
+
+            // Monthly table — mix of DB analytics + yearly_analytics
+            const monthly = d.yearly_data || [];
+            $('an-monthly-tbody').innerHTML = monthly.map(m => `
+    <tr>
+        <td style="padding:6px 8px;color:var(--muted2)">${m.ym}</td>
+        <td style="padding:6px 8px;text-align:right">${m.orders}</td>
+        <td style="padding:6px 8px;text-align:right;color:var(--green)">₹${Number(m.rev).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</td>
+    </tr>`).join('') || '<tr><td colspan="3" style="text-align:center;color:var(--muted);padding:16px">No data</td></tr>';
+        }
+
+        function initAnalytics() {
+            const today = new Date();
+            const from = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().slice(0, 10);
+            const to = today.toISOString().slice(0, 10);
+            $('an-from').value = from;
+            $('an-to').value = to;
+            loadAnalytics();
+            checkRetentionWarning();
+        }
+
+        function checkRetentionWarning() {
+            const today = new Date();
+            const day = today.getDate();
+            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+            if (day >= lastDay - 2) {
+                const cutoff = new Date(today.getFullYear(), today.getMonth() - 3, 1);
+                const cutoffStr = cutoff.toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
+                const banner = document.createElement('div');
+                banner.id = 'retention-banner';
+                banner.style.cssText = 'background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.4);border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px';
+                banner.innerHTML = `
+                    <div>
+                        <div style="font-size:14px;font-weight:700;color:var(--yellow)">⚠️ Month-end Alert — Data Cleanup Warning</div>
+                        <div style="font-size:12px;color:var(--muted2);margin-top:4px">Orders older than <strong>${cutoffStr}</strong> will be deleted soon. Download your reports now!</div>
+                    </div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap">
+                        <button class="btn btn-ghost btn-sm" onclick="downloadExcel('last3months')" style="border-color:var(--yellow);color:var(--yellow)">⬇ Last 3 Months Excel</button>
+                        <button class="btn btn-ghost btn-sm" onclick="dismissBanner()">✕ Dismiss</button>
+                    </div>`;
+                const sec = $('sec-analytics');
+                sec.insertBefore(banner, sec.firstChild);
+            }
+        }
+
+        function dismissBanner() {
+            const b = $('retention-banner');
+            if (b) b.remove();
+        }
+
+
+
+        function downloadExcel(type) {
+            let from, to;
+            if (type === 'range') {
+                from = $('an-from').value;
+                to = $('an-to').value;
+            } else if (type === 'reports') {
+                from = $('report-from').value;
+                to = $('report-to').value;
+            } else if (type === 'last3months') {
+                const today = new Date();
+                to = today.toISOString().slice(0, 10);
+                from = new Date(today.getFullYear(), today.getMonth() - 3, 1).toISOString().slice(0, 10);
+            }
+            if (!from || !to) return alert('Please select date range first');
+            window.location.href = `/api/admin/export_excel?from=${from}&to=${to}`;
+        }
+
+        // // Fix unknown payments on load
+        // fetch('/api/admin/fix_unknown_payments', {method:'POST'}).catch(()=>{});
+
+
+        // Fix unknown payments + duplicates on load
+        fetch('/api/admin/fix_unknown_payments', { method: 'POST' }).catch(() => { });
+        fetch('/api/admin/fix_duplicate_payments', { method: 'POST' }).catch(() => { });
+
+
+        // Init
+        // loadDashboard();
+
+
+        // Init
+        loadDashboard();
+        loadLicenseInfo(); // Load license on page load
+
+
+    </script>
+</body>
+
+</html>
