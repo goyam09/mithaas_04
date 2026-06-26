@@ -1041,14 +1041,28 @@
                         <h3>🗂️ Menu Categories</h3>
                     </div>
                     <table>
-                        <thead>
+                        <!-- <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Sort Order</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
+                        <tbody id="cats-tbody"></tbody> -->
+
+
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Sort Order</th>
+                                <th>Top Pick</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
                         <tbody id="cats-tbody"></tbody>
+
+
+                        
                     </table>
                 </div>
             </div>
@@ -1845,12 +1859,34 @@
         }
 
         // Categories
+    //     async function loadCategories() {
+    //         menuCategories = await fetch('/api/admin/categories').then(r => r.json());
+    //         $('cats-tbody').innerHTML = menuCategories.map(c => `
+    // <tr><td><strong>${c.name}</strong></td><td>${c.sort_order}</td>
+    // <td><button class="btn btn-danger btn-sm" onclick="deleteCategory(${c.id})">Delete</button></td></tr>`).join('');
+    //     }
+
+
         async function loadCategories() {
-            menuCategories = await fetch('/api/admin/categories').then(r => r.json());
-            $('cats-tbody').innerHTML = menuCategories.map(c => `
+                menuCategories = await fetch('/api/admin/categories').then(r => r.json());
+                $('cats-tbody').innerHTML = menuCategories.map(c => `
     <tr><td><strong>${c.name}</strong></td><td>${c.sort_order}</td>
+    <td><select onchange="setCatTopPick(${c.id}, this.value)" style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-size:12px">
+      <option value="" ${!c.top_pick ? 'selected' : ''}>—</option>
+      <option value="1" ${c.top_pick == 1 ? 'selected' : ''}>⭐ 1</option>
+      <option value="2" ${c.top_pick == 2 ? 'selected' : ''}>⭐ 2</option>
+      <option value="3" ${c.top_pick == 3 ? 'selected' : ''}>⭐ 3</option>
+    </select></td>
     <td><button class="btn btn-danger btn-sm" onclick="deleteCategory(${c.id})">Delete</button></td></tr>`).join('');
-        }
+            }
+            async function setCatTopPick(id, val) {
+                const cat = menuCategories.find(c => c.id == id);
+                await fetch(`/api/admin/categories/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: cat.name, sort_order: cat.sort_order, top_pick: val ? parseInt(val) : null }) });
+                loadCategories();
+            }
+
+
+            
         async function addCategory() {
             await fetch('/api/admin/categories', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: $('cat-name').value.trim(), sort_order: parseInt($('cat-sort').value) || 0 }) });
             closeModal('add-cat-modal'); loadCategories();
