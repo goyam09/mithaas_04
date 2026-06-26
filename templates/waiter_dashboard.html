@@ -1061,18 +1061,59 @@
     }
 
     @media(max-width:600px) {
-      .content { padding: 10px }
-      .topbar { padding: 10px 12px }
-      .orders-grid { grid-template-columns: 1fr }
-      .new-order-grid { gap: 10px }
-      .menu-grid { grid-template-columns: repeat(auto-fill, minmax(120px,1fr));gap:8px;padding:10px }
-      .table-select-grid { grid-template-columns: repeat(auto-fill, minmax(64px,1fr));gap:8px;padding:10px }
-      .order-info-row { grid-template-columns: 1fr }
-      .oc-actions { grid-template-columns: 1fr 1fr }
-      .cart-items { max-height: 200px }
-      .bill-summary { padding: 10px }
-      .modal { padding: 16px;border-radius: 14px }
-      .wm-opt { padding: 10px 4px;font-size:12px }
+      .content {
+        padding: 10px
+      }
+
+      .topbar {
+        padding: 10px 12px
+      }
+
+      .orders-grid {
+        grid-template-columns: 1fr
+      }
+
+      .new-order-grid {
+        gap: 10px
+      }
+
+      .menu-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 8px;
+        padding: 10px
+      }
+
+      .table-select-grid {
+        grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+        gap: 8px;
+        padding: 10px
+      }
+
+      .order-info-row {
+        grid-template-columns: 1fr
+      }
+
+      .oc-actions {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .cart-items {
+        max-height: 200px
+      }
+
+      .bill-summary {
+        padding: 10px
+      }
+
+      .modal {
+        padding: 16px;
+        border-radius: 14px
+      }
+
+      .wm-opt {
+        padding: 10px 4px;
+        font-size: 12px
+      }
     }
   </style>
 </head>
@@ -1253,18 +1294,12 @@
         <div id="wm-stock-info" style="font-size:11px;margin-top:6px;display:none"></div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
-        <!-- <div class="wm-opt" onclick="selectWmWeight(0.1,'100gm',this)">100 gm</div>
+        <div class="wm-opt" onclick="selectWmWeight(0.1,'100gm',this)">100 gm</div>
         <div class="wm-opt" onclick="selectWmWeight(0.2,'200gm',this)">200 gm</div>
         <div class="wm-opt" onclick="selectWmWeight(0.25,'250gm',this)">250 gm</div>
         <div class="wm-opt" onclick="selectWmWeight(0.5,'500gm',this)">500 gm</div>
         <div class="wm-opt" onclick="selectWmWeight(1,'1kg',this)">1 Kg</div>
-        <div class="wm-opt" onclick="selectWmWeight(null,'Custom',this)" style="color:var(--brand)">Custom ✏️</div> -->
-
-        <div class="wm-opt" onclick="selectWmWeight(0.25,'250gm',this)">250 gm</div>
-        <div class="wm-opt" onclick="selectWmWeight(0.5,'500gm',this)">500 gm</div>
         <div class="wm-opt" onclick="selectWmWeight(null,'Custom',this)" style="color:var(--brand)">Custom ✏️</div>
-
-
       </div>
       <div id="wm-custom-box" style="display:none;margin-bottom:12px">
         <label
@@ -1335,7 +1370,8 @@
   <!-- BILL / PAYMENT MODAL -->
   <div class="modal-overlay" id="bill-modal">
     <div class="modal">
-      <div style="font-size:15px;font-weight:800;color:var(--brand);margin-bottom:8px">Token #${order.token_number || '—'}
+      <div style="font-size:15px;font-weight:800;color:var(--brand);margin-bottom:8px">Token #${order.token_number ||
+        '—'}
       </div>
       <h3>🧾 Send to Cashier</h3>
       <div id="bill-preview" style="margin-bottom:16px"></div>
@@ -1490,36 +1526,18 @@
       toast('Walk-in selected');
     }
 
-    // // Load menu
-    // async function loadMenu() {
-    //   [menuAll, categories] = await Promise.all([
-    //     fetch('/api/waiter/menu').then(r => r.json()),
-    //     fetch('/api/admin/categories').then(r => r.json()).catch(() => [])
-    //   ]);
-    //   // Build categories from menu
-    //   const cats = [...new Map(menuAll.map(m => [m.category_id, { id: m.category_id, name: m.category_name }])).values()];
-    //   $('cat-tabs').innerHTML = `<div class="cat-tab active" data-cat="" onclick="filterMenuItems(this)">All</div>` +
-    //     cats.map(c => `<div class="cat-tab" data-cat="${c.id}" onclick="filterMenuItems(this)">${c.name}</div>`).join('');
-    //   renderMenuGrid(menuAll);
-    // }
-
-
+    // Load menu
     async function loadMenu() {
-      menuAll = await fetch('/api/waiter/menu').then(r => r.json());
-      const catMap = new Map();
-      menuAll.forEach(m => { if (!catMap.has(m.category_id)) catMap.set(m.category_id, { id: m.category_id, name: m.category_name, top_pick: m.category_top_pick || null }); });
-      let cats = [...catMap.values()];
-      const topPicks = cats.filter(c => c.top_pick).sort((a, b) => a.top_pick - b.top_pick);
-      const others = cats.filter(c => !c.top_pick);
-      const ordered = [...topPicks, ...others];
-      const defaultCat = topPicks.length ? topPicks[0] : null;
-      $('cat-tabs').innerHTML = ordered.map(c => `<div class="cat-tab ${defaultCat && c.id === defaultCat.id ? 'active' : ''}" data-cat="${c.id}" onclick="filterMenuItems(this)">${c.top_pick ? '⭐ ' : ''}${c.name}</div>`).join('') +
-        `<div class="cat-tab ${!defaultCat ? 'active' : ''}" data-cat="" onclick="filterMenuItems(this)">All</div>`;
-      activeCat = defaultCat ? String(defaultCat.id) : '';
-      renderMenuGrid(defaultCat ? menuAll.filter(m => m.category_id == defaultCat.id) : menuAll);
+      [menuAll, categories] = await Promise.all([
+        fetch('/api/waiter/menu').then(r => r.json()),
+        fetch('/api/admin/categories').then(r => r.json()).catch(() => [])
+      ]);
+      // Build categories from menu
+      const cats = [...new Map(menuAll.map(m => [m.category_id, { id: m.category_id, name: m.category_name }])).values()];
+      $('cat-tabs').innerHTML = `<div class="cat-tab active" data-cat="" onclick="filterMenuItems(this)">All</div>` +
+        cats.map(c => `<div class="cat-tab" data-cat="${c.id}" onclick="filterMenuItems(this)">${c.name}</div>`).join('');
+      renderMenuGrid(menuAll);
     }
-
-
 
     let activeCat = '';
     function filterMenuItems(tabEl) {
@@ -2010,16 +2028,16 @@
     window._gstEnabled = true;
     window._gstPct = 5;
     fetch('/api/public/gst_settings').then(r => r.json()).then(d => {
-        window._gstEnabled = d.gst_enabled !== 0;
-        window._gstPct = parseFloat(d.gst_percentage) || 5;
-        // Bill summary label update karo
-        const gstLabel = document.querySelector('#bill-gst')?.previousElementSibling;
-        if (gstLabel) gstLabel.textContent = window._gstEnabled ? `GST (${window._gstPct}%)` : 'GST';
-        if (!window._gstEnabled) {
-            const gstRow = $('bill-gst')?.closest('.bill-row');
-            if (gstRow) gstRow.style.display = 'none';
-        }
-    }).catch(() => {});
+      window._gstEnabled = d.gst_enabled !== 0;
+      window._gstPct = parseFloat(d.gst_percentage) || 5;
+      // Bill summary label update karo
+      const gstLabel = document.querySelector('#bill-gst')?.previousElementSibling;
+      if (gstLabel) gstLabel.textContent = window._gstEnabled ? `GST (${window._gstPct}%)` : 'GST';
+      if (!window._gstEnabled) {
+        const gstRow = $('bill-gst')?.closest('.bill-row');
+        if (gstRow) gstRow.style.display = 'none';
+      }
+    }).catch(() => { });
 
     // Init
     loadTables();

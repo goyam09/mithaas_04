@@ -1041,28 +1041,14 @@
                         <h3>🗂️ Menu Categories</h3>
                     </div>
                     <table>
-                        <!-- <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Sort Order</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="cats-tbody"></tbody> -->
-
-
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Sort Order</th>
-                                <th>Top Pick</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="cats-tbody"></tbody>
-
-
-                        
                     </table>
                 </div>
             </div>
@@ -1081,19 +1067,19 @@
                         <h3>🍛 Menu Items</h3><span id="menu-count" style="font-size:12px;color:var(--muted)"></span>
                     </div>
                     <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-                    <table style="min-width:580px">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>₹/kg</th>
-                                <th>Stock</th>
-                                <th>On</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="menu-tbody"></tbody>
-                    </table>
+                        <table style="min-width:580px">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>₹/kg</th>
+                                    <th>Stock</th>
+                                    <th>On</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="menu-tbody"></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -1105,25 +1091,26 @@
                         <h3>📦 Aaj ka Stock Enter Karo</h3>
                         <button class="btn btn-ghost btn-sm" onclick="loadStockStatus()">↻ Refresh</button>
                     </div>
-                    <div style="padding:14px;font-size:12px;color:var(--yellow);background:rgba(245,158,11,.07);border-radius:8px;margin:0 16px 12px">
+                    <div
+                        style="padding:14px;font-size:12px;color:var(--yellow);background:rgba(245,158,11,.07);border-radius:8px;margin:0 16px 12px">
                         ⚡ Sirf dekhne ke liye — stock khatam hone par bhi order le sakte hain
                     </div>
                     <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-                    <table style="min-width:600px">
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Cat.</th>
-                                <th>₹/kg</th>
-                                <th>Banaya</th>
-                                <th>Bika</th>
-                                <th>Bacha</th>
-                                <th>Status</th>
-                                <th>Update</th>
-                            </tr>
-                        </thead>
-                        <tbody id="stock-tbody"></tbody>
-                    </table>
+                        <table style="min-width:600px">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Cat.</th>
+                                    <th>₹/kg</th>
+                                    <th>Banaya</th>
+                                    <th>Bika</th>
+                                    <th>Bacha</th>
+                                    <th>Status</th>
+                                    <th>Update</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stock-tbody"></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -1274,32 +1261,37 @@
                                 <div id="lic-info-box"
                                     style="margin-bottom:20px;background:var(--card2);border-radius:12px;padding:16px;border-left:4px solid var(--green);font-size:13px;line-height:1.9;color:var(--text)">
                                 </div>
-                        
+
                                 <!-- HWID Section -->
                                 <div class="form-group">
                                     <label style="color:var(--brand);font-weight:700">🖥️ System HWID</label>
                                     <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
                                         <input type="text" id="lic-hwid" readonly
                                             style="font-family:'Courier New',monospace;font-size:12px;color:var(--brand);background:var(--card3);border:1px solid var(--border);padding:10px 12px;border-radius:8px;flex:1;font-weight:600">
-                                        <button class="btn btn-ghost btn-sm" onclick="copyHWID()" style="white-space:nowrap;flex-shrink:0">📋
+                                        <button class="btn btn-ghost btn-sm" onclick="copyHWID()"
+                                            style="white-space:nowrap;flex-shrink:0">📋
                                             Copy</button>
                                     </div>
-                                    <div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6">📱 Customer WhatsApp this HWID
-                                        to App Owner<br>→ App Owner generates license key<br>→ Paste key below and activate</div>
+                                    <div style="font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6">📱
+                                        Customer WhatsApp this HWID
+                                        to App Owner<br>→ App Owner generates license key<br>→ Paste key below and
+                                        activate</div>
                                 </div>
-                        
+
                                 <!-- Separator -->
                                 <div style="border-top:1px solid var(--border);margin:16px 0"></div>
-                        
+
                                 <!-- Renew Section -->
                                 <div class="form-group">
-                                    <label style="color:var(--brand);font-weight:700">🔑 Activate / Renew License</label>
+                                    <label style="color:var(--brand);font-weight:700">🔑 Activate / Renew
+                                        License</label>
                                     <input type="text" id="renew-key" placeholder="RSTR-XXXX-XXXX-XXXX-XXXX"
                                         style="text-transform:uppercase;margin-top:8px" onfocus="this.select()">
                                 </div>
-                        
-                                <button class="btn btn-primary" style="width:100%" onclick="renewLicense()">✅ Activate License</button>
-                        
+
+                                <button class="btn btn-primary" style="width:100%" onclick="renewLicense()">✅ Activate
+                                    License</button>
+
                                 <!-- Success/Error Message -->
                                 <div id="renew-msg"
                                     style="margin-top:14px;font-size:13px;padding:12px 14px;border-radius:8px;display:none;border-left:4px solid"
@@ -1650,7 +1642,8 @@
             <input type="hidden" id="m-edit-id">
             <div class="form-group"><label>Item Name</label><input type="text" id="m-item-name"></div>
             <div class="form-row">
-                <div class="form-group"><label>Price per Kg (₹)</label><input type="number" id="m-price" step="0.5"></div>
+                <div class="form-group"><label>Price per Kg (₹)</label><input type="number" id="m-price" step="0.5">
+                </div>
                 <div class="form-group"><label>Category</label><select id="m-cat"></select></div>
             </div>
             <div class="form-group"><label>Description</label><input type="text" id="m-desc"></div>
@@ -1859,34 +1852,12 @@
         }
 
         // Categories
-    //     async function loadCategories() {
-    //         menuCategories = await fetch('/api/admin/categories').then(r => r.json());
-    //         $('cats-tbody').innerHTML = menuCategories.map(c => `
-    // <tr><td><strong>${c.name}</strong></td><td>${c.sort_order}</td>
-    // <td><button class="btn btn-danger btn-sm" onclick="deleteCategory(${c.id})">Delete</button></td></tr>`).join('');
-    //     }
-
-
         async function loadCategories() {
-                menuCategories = await fetch('/api/admin/categories').then(r => r.json());
-                $('cats-tbody').innerHTML = menuCategories.map(c => `
+            menuCategories = await fetch('/api/admin/categories').then(r => r.json());
+            $('cats-tbody').innerHTML = menuCategories.map(c => `
     <tr><td><strong>${c.name}</strong></td><td>${c.sort_order}</td>
-    <td><select onchange="setCatTopPick(${c.id}, this.value)" style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-size:12px">
-      <option value="" ${!c.top_pick ? 'selected' : ''}>—</option>
-      <option value="1" ${c.top_pick == 1 ? 'selected' : ''}>⭐ 1</option>
-      <option value="2" ${c.top_pick == 2 ? 'selected' : ''}>⭐ 2</option>
-      <option value="3" ${c.top_pick == 3 ? 'selected' : ''}>⭐ 3</option>
-    </select></td>
     <td><button class="btn btn-danger btn-sm" onclick="deleteCategory(${c.id})">Delete</button></td></tr>`).join('');
-            }
-            async function setCatTopPick(id, val) {
-                const cat = menuCategories.find(c => c.id == id);
-                await fetch(`/api/admin/categories/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: cat.name, sort_order: cat.sort_order, top_pick: val ? parseInt(val) : null }) });
-                loadCategories();
-            }
-
-
-            
+        }
         async function addCategory() {
             await fetch('/api/admin/categories', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: $('cat-name').value.trim(), sort_order: parseInt($('cat-sort').value) || 0 }) });
             closeModal('add-cat-modal'); loadCategories();
@@ -2113,7 +2084,7 @@
                         💡 <strong style="color:var(--text)">Naya maal banao</strong> — kg enter karo aur Save karo. Jab naya maal banao tab hi update karo, har roz nahi.
                     </div>`;
 
-                    
+
                 const card = document.querySelector('#sec-stock .card');
                 const tableWrapper = card.querySelector('[style*="overflow-x"]');
                 card.insertBefore(bar, tableWrapper);
@@ -2124,25 +2095,25 @@
                 const bacha = banaya != null ? banaya - bika : null;
 
 
-        //         const pct = banaya ? (bika / banaya) * 100 : 0;
-        //         const color = bacha === null ? 'var(--muted)' : bacha <= 0 ? 'var(--red)' : bacha < (banaya * 0.2) ? 'var(--yellow)' : 'var(--green)';
-        //         return `<tr>
-        //           <td><strong>${r.name}</strong></td>
-        //           <td><span class="badge badge-blue">${r.category_name || '—'}</span></td>
-        //           <td>₹${parseFloat(r.price).toFixed(0)}/kg</td>
-        //           <td>${banaya != null ? banaya.toFixed(2)+' kg' : '<span style="color:var(--muted)">Set nahi</span>'}</td>
-        //           <td>${bika.toFixed(3)} kg</td>
-        //           <td style="color:${color};font-weight:700">${bacha != null ? bacha.toFixed(3)+' kg' : '—'}</td>
-        //           <td>
-        //             ${banaya == null ? '<span style="color:var(--muted)">—</span>' :
-        //               bacha <= 0 ? '<span class="badge" style="background:rgba(239,68,68,.15);color:var(--red)">❌ Khatam</span>' :
-        //               bacha < (banaya * 0.2) ? '<span class="badge badge-yellow">⚠️ Kam</span>' :
-        //               '<span class="badge badge-green">✅ Available</span>'}
-        //           </td>
-        //           <td><button class="btn btn-ghost btn-sm" onclick="openStockEdit(${r.id},'${r.name}',${banaya ?? 'null'})">Edit</button></td>
-        //         </tr>`;
-        //     }).join('');
-        // }
+                //         const pct = banaya ? (bika / banaya) * 100 : 0;
+                //         const color = bacha === null ? 'var(--muted)' : bacha <= 0 ? 'var(--red)' : bacha < (banaya * 0.2) ? 'var(--yellow)' : 'var(--green)';
+                //         return `<tr>
+                //           <td><strong>${r.name}</strong></td>
+                //           <td><span class="badge badge-blue">${r.category_name || '—'}</span></td>
+                //           <td>₹${parseFloat(r.price).toFixed(0)}/kg</td>
+                //           <td>${banaya != null ? banaya.toFixed(2)+' kg' : '<span style="color:var(--muted)">Set nahi</span>'}</td>
+                //           <td>${bika.toFixed(3)} kg</td>
+                //           <td style="color:${color};font-weight:700">${bacha != null ? bacha.toFixed(3)+' kg' : '—'}</td>
+                //           <td>
+                //             ${banaya == null ? '<span style="color:var(--muted)">—</span>' :
+                //               bacha <= 0 ? '<span class="badge" style="background:rgba(239,68,68,.15);color:var(--red)">❌ Khatam</span>' :
+                //               bacha < (banaya * 0.2) ? '<span class="badge badge-yellow">⚠️ Kam</span>' :
+                //               '<span class="badge badge-green">✅ Available</span>'}
+                //           </td>
+                //           <td><button class="btn btn-ghost btn-sm" onclick="openStockEdit(${r.id},'${r.name}',${banaya ?? 'null'})">Edit</button></td>
+                //         </tr>`;
+                //     }).join('');
+                // }
 
 
                 const pct = banaya ? (bika / banaya) * 100 : 0;
@@ -2151,14 +2122,14 @@
                 <td><strong>${r.name}</strong></td>
                 <td><span class="badge badge-blue">${r.category_name || '—'}</span></td>
                 <td>₹${parseFloat(r.price).toFixed(0)}/kg</td>
-                <td>${banaya != null ? banaya.toFixed(2)+' kg' : '<span style="color:var(--muted)">Set nahi</span>'}</td>
+                <td>${banaya != null ? banaya.toFixed(2) + ' kg' : '<span style="color:var(--muted)">Set nahi</span>'}</td>
                 <td>${bika.toFixed(3)} kg</td>
-                <td style="color:${color};font-weight:700">${bacha != null ? bacha.toFixed(3)+' kg' : '—'}</td>
+                <td style="color:${color};font-weight:700">${bacha != null ? bacha.toFixed(3) + ' kg' : '—'}</td>
                 <td>
                     ${banaya == null ? '<span style="color:var(--muted)">—</span>' :
-                    bacha <= 0 ? '<span class="badge" style="background:rgba(239,68,68,.15);color:var(--red)">❌ Khatam</span>' :
-                    bacha < (banaya * 0.2) ? '<span class="badge badge-yellow">⚠️ Kam</span>' :
-                    '<span class="badge badge-green">✅ Available</span>'}
+                        bacha <= 0 ? '<span class="badge" style="background:rgba(239,68,68,.15);color:var(--red)">❌ Khatam</span>' :
+                            bacha < (banaya * 0.2) ? '<span class="badge badge-yellow">⚠️ Kam</span>' :
+                                '<span class="badge badge-green">✅ Available</span>'}
                 </td>
                 <td>
                     <div style="display:flex;align-items:center;gap:6px">
@@ -2178,7 +2149,7 @@
             if (kg === null) return;
             const val = parseFloat(kg);
             fetch(`/api/admin/menu/${mid}/stock`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ stock_kg: isNaN(val) ? null : val }) })
-              .then(() => { toast('Stock updated ✓'); loadStockStatus(); });
+                .then(() => { toast('Stock updated ✓'); loadStockStatus(); });
         }
 
         // Staff
@@ -2633,9 +2604,9 @@
             const total = rows.filter(r => r.status === 'completed').reduce((s, r) => s + parseFloat(r.total_amount || 0), 0);
             $('report-summary').textContent = `${rows.length} orders · ₹${total.toLocaleString('en-IN', { maximumFractionDigits: 0 })} revenue`;
             $('reports-tbody').innerHTML = rows.map(r => {
-          // Fetch items for this order to show details
-          return `<tr><td colspan="9" style="padding:0;border:none"><div style="padding:11px 16px"><div style="display:flex;gap:16px;margin-bottom:8px"><div style="flex:1"><code style="font-size:11px;color:var(--brand)">Token #${r.token_number || '—'}</code> | Table ${r.table_number || '—'} | ${r.waiter_name || '—'}</div><div style="font-size:13px;font-weight:700">${r.customer_name || 'Guest'} ${r.customer_mobile ? '📱 ' + r.customer_mobile : ''}</div><div style="font-size:13px;color:var(--green);font-weight:700">₹${parseFloat(r.total_amount || 0).toLocaleString('en-IN')}</div><div style="font-size:11px;color:var(--muted)">${toIST(r.created_at)} | ${r.payment_mode || '—'}</div></div></div><button class="btn btn-ghost btn-sm" onclick="viewOrderItems(${r.id},'${r.token_number}')" style="margin:0 16px">View Items →</button></td></tr>`;
-        }).join('');
+                // Fetch items for this order to show details
+                return `<tr><td colspan="9" style="padding:0;border:none"><div style="padding:11px 16px"><div style="display:flex;gap:16px;margin-bottom:8px"><div style="flex:1"><code style="font-size:11px;color:var(--brand)">Token #${r.token_number || '—'}</code> | Table ${r.table_number || '—'} | ${r.waiter_name || '—'}</div><div style="font-size:13px;font-weight:700">${r.customer_name || 'Guest'} ${r.customer_mobile ? '📱 ' + r.customer_mobile : ''}</div><div style="font-size:13px;color:var(--green);font-weight:700">₹${parseFloat(r.total_amount || 0).toLocaleString('en-IN')}</div><div style="font-size:11px;color:var(--muted)">${toIST(r.created_at)} | ${r.payment_mode || '—'}</div></div></div><button class="btn btn-ghost btn-sm" onclick="viewOrderItems(${r.id},'${r.token_number}')" style="margin:0 16px">View Items →</button></td></tr>`;
+            }).join('');
         }
         async function viewOrderItems(oid, token) {
             const items = await fetch(`/api/admin/reports/order/${oid}/items`).then(r => r.json());

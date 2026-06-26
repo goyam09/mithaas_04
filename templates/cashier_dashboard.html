@@ -612,92 +612,471 @@
             }
         }
 
-    @media(max-width:600px) {
-            .content { padding: 10px }
-            .topbar { padding: 10px 12px }
-            .new-order-grid { gap: 10px }
-            .no-menu-grid { grid-template-columns: repeat(auto-fill, minmax(120px,1fr));gap:8px;padding:10px }
-            .table-select-grid { grid-template-columns: repeat(auto-fill, minmax(64px,1fr));gap:8px;padding:10px }
-            .pay-pills { grid-template-columns: 1fr 1fr }
-            .modal { padding: 16px;border-radius: 14px }
-            .no-wm-opt { padding: 10px 4px;font-size:12px }
-            .pending-card { border-radius: 10px }
-            .pc-header { padding: 10px 12px }
-            .pc-body { padding: 10px 12px }
-            .no-orders-grid { grid-template-columns: 1fr }
-        }
-
-        /* ── NEW ORDER + ACTIVE ORDERS ── */
-        .new-order-grid{display:grid;grid-template-columns:1fr 340px;gap:16px;height:calc(100vh - 140px)}
-        .order-left{display:flex;flex-direction:column;gap:14px;overflow:hidden}
-        .order-right{display:flex;flex-direction:column;gap:12px;overflow-y:auto}
-        .table-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:10px;padding:14px}
-        .table-btn{padding:12px 8px;background:var(--card2);border:2px solid var(--border);border-radius:10px;text-align:center;cursor:pointer;transition:all .15s;font-size:12px;font-weight:600}
-        .table-btn:hover{border-color:var(--brand);color:var(--brand)}
-        .table-btn.selected{border-color:var(--brand);background:var(--brand-light);color:var(--brand)}
-        .table-btn.occupied{border-color:var(--red);background:rgba(239,68,68,.05);color:var(--muted);cursor:not-allowed}
-        .table-btn .tnum{font-size:16px;font-weight:800;margin-bottom:2px}
-        .cat-tabs{display:flex;gap:8px;padding:12px 16px;overflow-x:auto;flex-shrink:0;border-bottom:1px solid var(--border)}
-        .cat-tabs::-webkit-scrollbar{height:3px}
-        .cat-tabs::-webkit-scrollbar-thumb{background:var(--border)}
-        .cat-tab{padding:7px 16px;background:var(--card2);border:1px solid var(--border);border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
-        .cat-tab.active{background:var(--brand);border-color:var(--brand);color:#fff}
-        .cat-tab:hover:not(.active){border-color:var(--brand);color:var(--brand)}
-        .no-menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;padding:14px;overflow-y:auto;flex:1}
-        .no-menu-item{background:var(--card2);border:2px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;transition:all .15s}
-        .no-menu-item:hover{border-color:var(--brand);transform:translateY(-1px)}
-        .no-menu-item:active{transform:scale(0.97)}
-        .no-mic-name{font-size:13px;font-weight:700;margin-bottom:4px;line-height:1.3}
-        .no-mic-price{font-size:15px;font-weight:800;color:var(--brand)}
-        .no-mic-desc{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.4}
-        .no-search-box{position:relative;margin:10px 16px 0}
-        .no-search-box input{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:9px 12px 9px 36px;color:var(--text);font-size:13px;outline:none}
-        .no-search-box input:focus{border-color:var(--brand)}
-        .no-search-box .si{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px}
-        .no-cart-items{max-height:240px;overflow-y:auto}
-        .no-cart-items::-webkit-scrollbar{width:4px}
-        .no-cart-items::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-        .no-cart-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border)}
-        .no-cart-item:last-child{border-bottom:none}
-        .no-qty-ctrl{display:flex;align-items:center;gap:8px}
-        .no-qty-btn{width:26px;height:26px;border-radius:6px;background:var(--card3);border:1px solid var(--border);color:var(--text);cursor:pointer;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all .15s}
-        .no-qty-btn:hover{background:var(--brand);border-color:var(--brand)}
-        .no-qty-val{font-size:14px;font-weight:700;min-width:20px;text-align:center}
-        .no-ci-remove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:0 4px;transition:color .15s}
-        .no-ci-remove:hover{color:var(--red)}
-        .no-bill-row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0}
-        .no-bill-row.total{font-size:16px;font-weight:800;padding-top:8px;border-top:1px solid var(--border);margin-top:6px;color:var(--brand)}
-        .no-fi{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;transition:border-color .2s}
-        .no-fi:focus{border-color:var(--brand)}
-        .no-fl{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px}
-        .no-orders-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
-        .no-order-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-        .no-oc-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--card2)}
-        .no-oc-body{padding:14px 16px}
-        .no-oc-item{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;border-bottom:1px solid var(--border)}
-        .no-oc-item:last-child{border-bottom:none}
-        .no-oc-item-status{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px}
-        .no-status-pending{background:rgba(245,158,11,.12);color:var(--yellow)}
-        .no-status-ready{background:rgba(34,197,94,.12);color:var(--green)}
-        .no-status-served{background:rgba(99,102,241,.12);color:#818cf8}
-        .no-oc-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-        .no-oc-actions .btn{font-size:12px;padding:8px;width:100%}
-        @media(max-width:900px){
-            .new-order-grid{grid-template-columns:1fr;height:auto}
-        }
-        @media(max-width:600px){
-            .new-order-grid{gap:10px}
-            .no-orders-grid{grid-template-columns:1fr}
-            .table-select-grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px;padding:10px}
-            .no-menu-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
-            .cat-tab{padding:6px 12px;font-size:11px}
-        }            .content {
-                padding: 12px
+        @media(max-width:600px) {
+            .content {
+                padding: 10px
             }
 
             .topbar {
-                padding: 10px 14px
+                padding: 10px 12px
             }
+
+            .new-order-grid {
+                gap: 10px
+            }
+
+            .no-menu-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 8px;
+                padding: 10px
+            }
+
+            .table-select-grid {
+                grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+                gap: 8px;
+                padding: 10px
+            }
+
+            .pay-pills {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .modal {
+                padding: 16px;
+                border-radius: 14px
+            }
+
+            .no-wm-opt {
+                padding: 10px 4px;
+                font-size: 12px
+            }
+
+            .pending-card {
+                border-radius: 10px
+            }
+
+            .pc-header {
+                padding: 10px 12px
+            }
+
+            .pc-body {
+                padding: 10px 12px
+            }
+
+            .no-orders-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* ── NEW ORDER + ACTIVE ORDERS ── */
+        .new-order-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 16px;
+            height: calc(100vh - 140px)
+        }
+
+        .order-left {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            overflow: hidden
+        }
+
+        .order-right {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto
+        }
+
+        .table-select-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+            gap: 10px;
+            padding: 14px
+        }
+
+        .table-btn {
+            padding: 12px 8px;
+            background: var(--card2);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all .15s;
+            font-size: 12px;
+            font-weight: 600
+        }
+
+        .table-btn:hover {
+            border-color: var(--brand);
+            color: var(--brand)
+        }
+
+        .table-btn.selected {
+            border-color: var(--brand);
+            background: var(--brand-light);
+            color: var(--brand)
+        }
+
+        .table-btn.occupied {
+            border-color: var(--red);
+            background: rgba(239, 68, 68, .05);
+            color: var(--muted);
+            cursor: not-allowed
+        }
+
+        .table-btn .tnum {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 2px
+        }
+
+        .cat-tabs {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            overflow-x: auto;
+            flex-shrink: 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .cat-tabs::-webkit-scrollbar {
+            height: 3px
+        }
+
+        .cat-tabs::-webkit-scrollbar-thumb {
+            background: var(--border)
+        }
+
+        .cat-tab {
+            padding: 7px 16px;
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all .15s;
+            flex-shrink: 0
+        }
+
+        .cat-tab.active {
+            background: var(--brand);
+            border-color: var(--brand);
+            color: #fff
+        }
+
+        .cat-tab:hover:not(.active) {
+            border-color: var(--brand);
+            color: var(--brand)
+        }
+
+        .no-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+            padding: 14px;
+            overflow-y: auto;
+            flex: 1
+        }
+
+        .no-menu-item {
+            background: var(--card2);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all .15s
+        }
+
+        .no-menu-item:hover {
+            border-color: var(--brand);
+            transform: translateY(-1px)
+        }
+
+        .no-menu-item:active {
+            transform: scale(0.97)
+        }
+
+        .no-mic-name {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            line-height: 1.3
+        }
+
+        .no-mic-price {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--brand)
+        }
+
+        .no-mic-desc {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 3px;
+            line-height: 1.4
+        }
+
+        .no-search-box {
+            position: relative;
+            margin: 10px 16px 0
+        }
+
+        .no-search-box input {
+            width: 100%;
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 9px 12px 9px 36px;
+            color: var(--text);
+            font-size: 13px;
+            outline: none
+        }
+
+        .no-search-box input:focus {
+            border-color: var(--brand)
+        }
+
+        .no-search-box .si {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        .no-cart-items {
+            max-height: 240px;
+            overflow-y: auto
+        }
+
+        .no-cart-items::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .no-cart-items::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 2px
+        }
+
+        .no-cart-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .no-cart-item:last-child {
+            border-bottom: none
+        }
+
+        .no-qty-ctrl {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .no-qty-btn {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            background: var(--card3);
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .15s
+        }
+
+        .no-qty-btn:hover {
+            background: var(--brand);
+            border-color: var(--brand)
+        }
+
+        .no-qty-val {
+            font-size: 14px;
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center
+        }
+
+        .no-ci-remove {
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 0 4px;
+            transition: color .15s
+        }
+
+        .no-ci-remove:hover {
+            color: var(--red)
+        }
+
+        .no-bill-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 3px 0
+        }
+
+        .no-bill-row.total {
+            font-size: 16px;
+            font-weight: 800;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+            margin-top: 6px;
+            color: var(--brand)
+        }
+
+        .no-fi {
+            width: 100%;
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 9px 12px;
+            color: var(--text);
+            font-size: 13px;
+            outline: none;
+            transition: border-color .2s
+        }
+
+        .no-fi:focus {
+            border-color: var(--brand)
+        }
+
+        .no-fl {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px
+        }
+
+        .no-orders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px
+        }
+
+        .no-order-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden
+        }
+
+        .no-oc-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card2)
+        }
+
+        .no-oc-body {
+            padding: 14px 16px
+        }
+
+        .no-oc-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 4px 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .no-oc-item:last-child {
+            border-bottom: none
+        }
+
+        .no-oc-item-status {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 10px
+        }
+
+        .no-status-pending {
+            background: rgba(245, 158, 11, .12);
+            color: var(--yellow)
+        }
+
+        .no-status-ready {
+            background: rgba(34, 197, 94, .12);
+            color: var(--green)
+        }
+
+        .no-status-served {
+            background: rgba(99, 102, 241, .12);
+            color: #818cf8
+        }
+
+        .no-oc-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px
+        }
+
+        .no-oc-actions .btn {
+            font-size: 12px;
+            padding: 8px;
+            width: 100%
+        }
+
+        @media(max-width:900px) {
+            .new-order-grid {
+                grid-template-columns: 1fr;
+                height: auto
+            }
+        }
+
+        @media(max-width:600px) {
+            .new-order-grid {
+                gap: 10px
+            }
+
+            .no-orders-grid {
+                grid-template-columns: 1fr
+            }
+
+            .table-select-grid {
+                grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+                gap: 8px;
+                padding: 10px
+            }
+
+            .no-menu-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr))
+            }
+
+            .cat-tab {
+                padding: 6px 12px;
+                font-size: 11px
+            }
+        }
+
+        .content {
+            padding: 12px
+        }
+
+        .topbar {
+            padding: 10px 14px
+        }
         }
     </style>
 </head>
@@ -711,8 +1090,12 @@
             <h2>MI<span>THAAS</span></h2>
         </div>
         <nav class="nav">
-            <div class="nav-item" onclick="nav('new-order',this)"><span class="icon">➕</span><span>New Order</span></div>
-            <div class="nav-item" onclick="nav('active-orders',this)"><span class="icon">🔥</span><span>Active Orders <span id="no-active-badge" style="background:var(--brand);color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px">0</span></span></div>
+            <div class="nav-item" onclick="nav('new-order',this)"><span class="icon">➕</span><span>New Order</span>
+            </div>
+            <div class="nav-item" onclick="nav('active-orders',this)"><span class="icon">🔥</span><span>Active Orders
+                    <span id="no-active-badge"
+                        style="background:var(--brand);color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px">0</span></span>
+            </div>
             <div class="nav-item active" onclick="nav('pending',this)"><span class="icon">🧾</span><span>Pending Bills
                     <span id="pending-badge"
                         style="background:var(--brand);color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px">0</span></span>
@@ -756,86 +1139,100 @@
 
             <!-- NEW ORDER -->
             <div class="section" id="sec-new-order">
-              <div class="new-order-grid">
-                <div class="order-left">
-                  <div class="card" id="no-step-table">
-                    <div class="card-header">
-                      <h3>① Select Table</h3>
-                      <span id="no-selected-table-label" style="font-size:13px;color:var(--brand);font-weight:700"></span>
-                    </div>
-                    <div style="padding:10px 14px 0">
-                      <div id="no-walkin-btn" onclick="noSelectWalkin()" style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(59,130,246,0.08);border:2px dashed #3b82f6;border-radius:10px;cursor:pointer;transition:all .15s;margin-bottom:10px">
-                        <span style="font-size:22px">🚶</span>
-                        <div>
-                          <div style="font-size:13px;font-weight:700;color:#3b82f6">Walk-in Customer</div>
-                          <div style="font-size:11px;color:var(--muted)">No table needed — takeaway / quick order</div>
+                <div class="new-order-grid">
+                    <div class="order-left">
+                        <div class="card" id="no-step-table">
+                            <div class="card-header">
+                                <h3>① Select Table</h3>
+                                <span id="no-selected-table-label"
+                                    style="font-size:13px;color:var(--brand);font-weight:700"></span>
+                            </div>
+                            <div style="padding:10px 14px 0">
+                                <div id="no-walkin-btn" onclick="noSelectWalkin()"
+                                    style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(59,130,246,0.08);border:2px dashed #3b82f6;border-radius:10px;cursor:pointer;transition:all .15s;margin-bottom:10px">
+                                    <span style="font-size:22px">🚶</span>
+                                    <div>
+                                        <div style="font-size:13px;font-weight:700;color:#3b82f6">Walk-in Customer</div>
+                                        <div style="font-size:11px;color:var(--muted)">No table needed — takeaway /
+                                            quick order</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-select-grid" id="no-tables-grid"></div>
                         </div>
-                      </div>
+                        <div class="card" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+                            <div class="card-header">
+                                <h3>② Choose Items</h3>
+                            </div>
+                            <div class="no-search-box"><span class="si">🔍</span><input type="text"
+                                    placeholder="Search dishes..." id="no-menu-search" oninput="noFilterMenu()"></div>
+                            <div class="cat-tabs" id="no-cat-tabs"></div>
+                            <div class="no-menu-grid" id="no-menu-grid"></div>
+                        </div>
                     </div>
-                    <div class="table-select-grid" id="no-tables-grid"></div>
-                  </div>
-                  <div class="card" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
-                    <div class="card-header"><h3>② Choose Items</h3></div>
-                    <div class="no-search-box"><span class="si">🔍</span><input type="text" placeholder="Search dishes..." id="no-menu-search" oninput="noFilterMenu()"></div>
-                    <div class="cat-tabs" id="no-cat-tabs"></div>
-                    <div class="no-menu-grid" id="no-menu-grid"></div>
-                  </div>
+                    <div class="order-right">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>③ Customer Info</h3>
+                            </div>
+                            <div style="padding:14px">
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+                                    <div>
+                                        <label class="no-fl">Customer Name</label>
+                                        <input type="text" class="no-fi" id="no-cust-name" placeholder="Optional">
+                                    </div>
+                                    <div>
+                                        <label class="no-fl">Mobile</label>
+                                        <input type="text" class="no-fi" id="no-cust-mobile" placeholder="10 digits">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="no-fl">Guests at Table</label>
+                                    <input type="number" class="no-fi" id="no-cust-count" value="1" min="1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>🛒 Order Items</h3>
+                                <span id="no-cart-count" style="font-size:12px;color:var(--muted)">0 items</span>
+                            </div>
+                            <div class="no-cart-items" id="no-cart-items">
+                                <div style="padding:20px;text-align:center;color:var(--muted);font-size:13px">No items
+                                    added yet</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div style="padding:14px">
+                                <div style="background:var(--card2);border-radius:10px;padding:14px;margin-bottom:12px">
+                                    <div class="no-bill-row"><span>Subtotal</span><span id="no-bill-subtotal">₹0</span>
+                                    </div>
+                                    <div class="no-bill-row"><span>GST (5%)</span><span id="no-bill-gst">₹0</span></div>
+                                    <div class="no-bill-row total"><span>TOTAL</span><span id="no-bill-total">₹0</span>
+                                    </div>
+                                </div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                                    <button class="btn btn-danger" style="width:100%" onclick="noClearCart()">✕
+                                        Clear</button>
+                                    <button class="btn btn-primary" style="width:100%" onclick="noPlaceOrder()">Place
+                                        Order →</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="order-right">
-                  <div class="card">
-                    <div class="card-header"><h3>③ Customer Info</h3></div>
-                    <div style="padding:14px">
-                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-                        <div>
-                          <label class="no-fl">Customer Name</label>
-                          <input type="text" class="no-fi" id="no-cust-name" placeholder="Optional">
-                        </div>
-                        <div>
-                          <label class="no-fl">Mobile</label>
-                          <input type="text" class="no-fi" id="no-cust-mobile" placeholder="10 digits">
-                        </div>
-                      </div>
-                      <div>
-                        <label class="no-fl">Guests at Table</label>
-                        <input type="number" class="no-fi" id="no-cust-count" value="1" min="1">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="card-header">
-                      <h3>🛒 Order Items</h3>
-                      <span id="no-cart-count" style="font-size:12px;color:var(--muted)">0 items</span>
-                    </div>
-                    <div class="no-cart-items" id="no-cart-items">
-                      <div style="padding:20px;text-align:center;color:var(--muted);font-size:13px">No items added yet</div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div style="padding:14px">
-                      <div style="background:var(--card2);border-radius:10px;padding:14px;margin-bottom:12px">
-                        <div class="no-bill-row"><span>Subtotal</span><span id="no-bill-subtotal">₹0</span></div>
-                        <div class="no-bill-row"><span>GST (5%)</span><span id="no-bill-gst">₹0</span></div>
-                        <div class="no-bill-row total"><span>TOTAL</span><span id="no-bill-total">₹0</span></div>
-                      </div>
-                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-                        <button class="btn btn-danger" style="width:100%" onclick="noClearCart()">✕ Clear</button>
-                        <button class="btn btn-primary" style="width:100%" onclick="noPlaceOrder()">Place Order →</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <!-- ACTIVE ORDERS -->
             <div class="section" id="sec-active-orders">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-                <div style="font-size:13px;color:var(--muted)" id="no-active-label">Active tables</div>
-                <button class="btn btn-ghost btn-sm" onclick="noLoadActiveOrders()">↻ Refresh</button>
-              </div>
-              <div class="no-orders-grid" id="no-orders-grid">
-                <div style="color:var(--muted);font-size:13px;grid-column:1/-1;text-align:center;padding:40px">No active orders</div>
-              </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+                    <div style="font-size:13px;color:var(--muted)" id="no-active-label">Active tables</div>
+                    <button class="btn btn-ghost btn-sm" onclick="noLoadActiveOrders()">↻ Refresh</button>
+                </div>
+                <div class="no-orders-grid" id="no-orders-grid">
+                    <div style="color:var(--muted);font-size:13px;grid-column:1/-1;text-align:center;padding:40px">No
+                        active orders</div>
+                </div>
             </div>
 
             <!-- PENDING BILLS -->
@@ -882,108 +1279,122 @@
     <!-- NO SPECIAL INSTRUCTION MODAL -->
     <!-- CASHIER WEIGHT MODAL -->
     <div class="modal-overlay" id="no-weight-modal">
-    <div class="modal" style="max-width:430px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-        <h3 style="margin:0">⚖️ Select Quantity</h3>
-        <button onclick="closeModal('no-weight-modal')" style="background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);width:30px;height:30px;cursor:pointer;font-size:16px">✕</button>
+        <div class="modal" style="max-width:430px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+                <h3 style="margin:0">⚖️ Select Quantity</h3>
+                <button onclick="closeModal('no-weight-modal')"
+                    style="background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);width:30px;height:30px;cursor:pointer;font-size:16px">✕</button>
+            </div>
+            <div style="background:var(--card2);border-radius:10px;padding:12px 14px;margin-bottom:12px">
+                <div id="no-wm-item-title" style="font-weight:800;font-size:15px;color:var(--text)"></div>
+                <div id="no-wm-item-price" style="font-size:13px;color:var(--brand);font-weight:600;margin-top:2px">
+                </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
+                <div class="no-wm-opt" onclick="noSelectWmWeight(0.1,'100gm',this)">100 gm</div>
+                <div class="no-wm-opt" onclick="noSelectWmWeight(0.2,'200gm',this)">200 gm</div>
+                <div class="no-wm-opt" onclick="noSelectWmWeight(0.25,'250gm',this)">250 gm</div>
+                <div class="no-wm-opt" onclick="noSelectWmWeight(0.5,'500gm',this)">500 gm</div>
+                <div class="no-wm-opt" onclick="noSelectWmWeight(1,'1kg',this)">1 Kg</div>
+                <div class="no-wm-opt" onclick="noSelectWmWeight(null,'Custom',this)" style="color:var(--brand)">Custom
+                    ✏️</div>
+            </div>
+            <div id="no-wm-custom-box" style="display:none;margin-bottom:12px">
+                <label
+                    style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;display:block;margin-bottom:5px">Custom
+                    (grams)</label>
+                <input type="number" id="no-wm-custom-gm" placeholder="e.g. 150, 300, 750..."
+                    oninput="noUpdateWmTotal()"
+                    style="width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:14px;outline:none">
+            </div>
+            <div
+                style="background:var(--card2);border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+                <div style="font-size:12px;color:var(--muted)">Quantity</div>
+                <div style="display:flex;align-items:center;gap:10px">
+                    <button onclick="noChangeWmMultiplier(-1)"
+                        style="width:34px;height:34px;background:var(--card3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700">−</button>
+                    <span id="no-wm-multiplier"
+                        style="font-size:22px;font-weight:800;min-width:28px;text-align:center;color:var(--brand)">1</span>
+                    <button onclick="noChangeWmMultiplier(1)"
+                        style="width:34px;height:34px;background:var(--brand);border:none;border-radius:8px;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700">+</button>
+                </div>
+            </div>
+            <div id="no-wm-total-preview"
+                style="font-size:14px;text-align:center;padding:12px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;margin-bottom:12px">
+                —</div>
+            <div id="no-wm-spec-box" style="margin-bottom:14px">
+                <label
+                    style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;display:block;margin-bottom:5px">Note
+                    (optional)</label>
+                <input type="text" id="no-wm-spec" placeholder="Special instructions..."
+                    style="width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;outline:none">
+            </div>
+            <div class="modal-footer" style="margin-top:0">
+                <button class="btn btn-ghost" onclick="closeModal('no-weight-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="noConfirmWeightAdd()">✓ Add to Order</button>
+            </div>
         </div>
-        <div style="background:var(--card2);border-radius:10px;padding:12px 14px;margin-bottom:12px">
-        <div id="no-wm-item-title" style="font-weight:800;font-size:15px;color:var(--text)"></div>
-        <div id="no-wm-item-price" style="font-size:13px;color:var(--brand);font-weight:600;margin-top:2px"></div>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
-        <!-- <div class="no-wm-opt" onclick="noSelectWmWeight(0.1,'100gm',this)">100 gm</div>
-        <div class="no-wm-opt" onclick="noSelectWmWeight(0.2,'200gm',this)">200 gm</div>
-        <div class="no-wm-opt" onclick="noSelectWmWeight(0.25,'250gm',this)">250 gm</div>
-        <div class="no-wm-opt" onclick="noSelectWmWeight(0.5,'500gm',this)">500 gm</div>
-        <div class="no-wm-opt" onclick="noSelectWmWeight(1,'1kg',this)">1 Kg</div>
-        <div class="no-wm-opt" onclick="noSelectWmWeight(null,'Custom',this)" style="color:var(--brand)">Custom ✏️</div> -->
-
-        <div class="no-wm-opt" onclick="noSelectWmWeight(0.25,'250gm',this)">250 gm</div>
-        <div class="no-wm-opt" onclick="noSelectWmWeight(0.5,'500gm',this)">500 gm</div>
-        <div class="no-wm-opt" onclick="noSelectWmWeight(null,'Custom',this)" style="color:var(--brand)">Custom ✏️</div>
-
-
-        </div>
-        <div id="no-wm-custom-box" style="display:none;margin-bottom:12px">
-        <label style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;display:block;margin-bottom:5px">Custom (grams)</label>
-        <input type="number" id="no-wm-custom-gm" placeholder="e.g. 150, 300, 750..." oninput="noUpdateWmTotal()" style="width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:14px;outline:none">
-        </div>
-        <div style="background:var(--card2);border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
-        <div style="font-size:12px;color:var(--muted)">Quantity</div>
-        <div style="display:flex;align-items:center;gap:10px">
-            <button onclick="noChangeWmMultiplier(-1)" style="width:34px;height:34px;background:var(--card3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700">−</button>
-            <span id="no-wm-multiplier" style="font-size:22px;font-weight:800;min-width:28px;text-align:center;color:var(--brand)">1</span>
-            <button onclick="noChangeWmMultiplier(1)" style="width:34px;height:34px;background:var(--brand);border:none;border-radius:8px;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700">+</button>
-        </div>
-        </div>
-        <div id="no-wm-total-preview" style="font-size:14px;text-align:center;padding:12px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;margin-bottom:12px">—</div>
-        <div id="no-wm-spec-box" style="margin-bottom:14px">
-        <label style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;display:block;margin-bottom:5px">Note (optional)</label>
-        <input type="text" id="no-wm-spec" placeholder="Special instructions..." style="width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;outline:none">
-        </div>
-        <div class="modal-footer" style="margin-top:0">
-        <button class="btn btn-ghost" onclick="closeModal('no-weight-modal')">Cancel</button>
-        <button class="btn btn-primary" onclick="noConfirmWeightAdd()">✓ Add to Order</button>
-        </div>
-    </div>
     </div>
 
     <style>
-    .no-wm-opt {
-        padding: 12px 6px;
-        background: var(--card2);
-        border: 2px solid var(--border);
-        border-radius: 10px;
-        text-align: center;
-        cursor: pointer;
-        font-weight: 700;
-        font-size: 13px;
-        transition: all .15s
-    }
-    .no-wm-opt:hover {
-        border-color: var(--brand);
-        color: var(--brand)
-    }
-    .no-wm-opt.no-wm-sel {
-        border-color: var(--brand) !important;
-        background: var(--brand-light) !important;
-        color: var(--brand) !important
-    }
+        .no-wm-opt {
+            padding: 12px 6px;
+            background: var(--card2);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            transition: all .15s
+        }
+
+        .no-wm-opt:hover {
+            border-color: var(--brand);
+            color: var(--brand)
+        }
+
+        .no-wm-opt.no-wm-sel {
+            border-color: var(--brand) !important;
+            background: var(--brand-light) !important;
+            color: var(--brand) !important
+        }
     </style>
 
     <!-- NO SPECIAL INSTRUCTION MODAL -->
     <div class="modal-overlay" id="no-spec-modal">
-      <div class="modal" style="max-width:380px">
-        <h3>Special Instruction</h3>
-        <div class="mfg">
-          <label>Item</label>
-          <div id="no-spec-item-name" style="font-weight:700;color:var(--brand);font-size:14px;padding:8px 0"></div>
+        <div class="modal" style="max-width:380px">
+            <h3>Special Instruction</h3>
+            <div class="mfg">
+                <label>Item</label>
+                <div id="no-spec-item-name" style="font-weight:700;color:var(--brand);font-size:14px;padding:8px 0">
+                </div>
+            </div>
+            <div class="mfg">
+                <label>Instruction (optional)</label>
+                <input type="text" id="no-spec-input" placeholder="e.g. No onion, Extra spicy...">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('no-spec-modal')">Skip</button>
+                <button class="btn btn-primary" onclick="noConfirmAddItem()">Add to Order</button>
+            </div>
         </div>
-        <div class="mfg">
-          <label>Instruction (optional)</label>
-          <input type="text" id="no-spec-input" placeholder="e.g. No onion, Extra spicy...">
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-ghost" onclick="closeModal('no-spec-modal')">Skip</button>
-          <button class="btn btn-primary" onclick="noConfirmAddItem()">Add to Order</button>
-        </div>
-      </div>
     </div>
 
     <!-- NO ADD MORE ITEMS MODAL -->
     <div class="modal-overlay" id="no-add-more-modal">
-      <div class="modal" style="max-width:600px">
-        <h3>Add More Items — <span id="no-am-table-label"></span></h3>
-        <div class="no-search-box" style="margin:0 0 10px"><span class="si">🔍</span><input type="text" placeholder="Search..." id="no-am-search" oninput="noFilterAM(null)"></div>
-        <div class="cat-tabs" id="no-am-cat-tabs" style="padding:0 0 10px;border:none"></div>
-        <div class="no-menu-grid" id="no-am-menu-grid" style="max-height:280px;overflow-y:auto;padding:0"></div>
-        <div id="no-am-cart" style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px"></div>
-        <div class="modal-footer">
-          <button class="btn btn-ghost" onclick="closeModal('no-add-more-modal')">Cancel</button>
-          <button class="btn btn-primary" onclick="noSubmitAddMore()">Add to Order</button>
+        <div class="modal" style="max-width:600px">
+            <h3>Add More Items — <span id="no-am-table-label"></span></h3>
+            <div class="no-search-box" style="margin:0 0 10px"><span class="si">🔍</span><input type="text"
+                    placeholder="Search..." id="no-am-search" oninput="noFilterAM(null)"></div>
+            <div class="cat-tabs" id="no-am-cat-tabs" style="padding:0 0 10px;border:none"></div>
+            <div class="no-menu-grid" id="no-am-menu-grid" style="max-height:280px;overflow-y:auto;padding:0"></div>
+            <div id="no-am-cart" style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px"></div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('no-add-more-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="noSubmitAddMore()">Add to Order</button>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- BILL DETAIL + PAYMENT MODAL -->
@@ -1028,7 +1439,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- SUCCESS MODAL -->
     <div class="modal-overlay" id="success-modal">
         <div class="modal" style="text-align:center;max-width:400px">
@@ -1038,7 +1449,8 @@
             <div style="background:var(--card2);border-radius:10px;padding:16px;margin-bottom:20px;text-align:left"
                 id="success-bill-area"></div>
             <button class="btn btn-primary btn-full" onclick="printBill()">🖨️ Print Bill</button>
-            <button class="btn btn-success btn-full" style="margin-top:8px" onclick="saveAsPDF('success')">📄 Save as PDF (WhatsApp ke liye)</button>
+            <button class="btn btn-success btn-full" style="margin-top:8px" onclick="saveAsPDF('success')">📄 Save as
+                PDF (WhatsApp ke liye)</button>
             <button class="btn btn-ghost btn-full" style="margin-top:8px"
                 onclick="closeModal('success-modal');loadPending();nav('pending',document.querySelectorAll('.nav-item')[2])">Done</button>
         </div>
@@ -1139,9 +1551,9 @@
         ${o.customer_name ? `<div style="font-size:12px;color:var(--muted);margin-bottom:10px">👤 ${o.customer_name}${o.customer_mobile ? ' · 📱' + o.customer_mobile : ''}</div>` : ''}
         <div style="margin-bottom:12px">
           ${o.items.map(i => {
-            const qty = i.quantity_kg ? (i.quantity_kg >= 1 ? i.quantity_kg.toFixed(3) + 'kg' : (i.quantity_kg * 1000).toFixed(0) + 'gm') : ('×' + i.quantity);
-            return `<div class="pc-item"><span>${i.item_name} ${qty}</span><span>₹${(i.price * i.quantity).toFixed(0)}</span></div>`;
-          }).join('')}
+                    const qty = i.quantity_kg ? (i.quantity_kg >= 1 ? i.quantity_kg.toFixed(3) + 'kg' : (i.quantity_kg * 1000).toFixed(0) + 'gm') : ('×' + i.quantity);
+                    return `<div class="pc-item"><span>${i.item_name} ${qty}</span><span>₹${(i.price * i.quantity).toFixed(0)}</span></div>`;
+                }).join('')}
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
           <div>
@@ -1159,68 +1571,68 @@
             }).join('');
         }
 
-    //     async function previewBill(oid) {
-    //         currentOid = oid;
-    //         const data = await fetch(`/api/cashier/bill_data/${oid}`).then(r => r.json());
-    //         currentBillData = data;
-    //         const w = window.open('', '_blank', 'width=400,height=600');
-    //         w.document.write(`<html><head><title>Bill Preview</title><style>
-    // *{margin:0;padding:0;box-sizing:border-box}
-    // body{background:#fff;display:flex;flex-direction:column;align-items:center;padding:20px;font-family:'Courier New',monospace}
-    // .bill-print{width:100%;max-width:300px}
+        //     async function previewBill(oid) {
+        //         currentOid = oid;
+        //         const data = await fetch(`/api/cashier/bill_data/${oid}`).then(r => r.json());
+        //         currentBillData = data;
+        //         const w = window.open('', '_blank', 'width=400,height=600');
+        //         w.document.write(`<html><head><title>Bill Preview</title><style>
+        // *{margin:0;padding:0;box-sizing:border-box}
+        // body{background:#fff;display:flex;flex-direction:column;align-items:center;padding:20px;font-family:'Courier New',monospace}
+        // .bill-print{width:100%;max-width:300px}
 
 
-//     async function previewBill(oid) {
-//             currentOid = oid;
-//             const data = await fetch(`/api/cashier/bill_data/${oid}`).then(r => r.json());
-//             currentBillData = data;
-//             const w = window.open('', '_blank', 'width=420,height=700');
-//             const billHtml = buildPrintBill(data.restaurant, data.order, data.items, data.order.bill_number, '— Preview —');
-//             w.document.write(`<html><head><title>Bill — ${data.order.bill_number}</title><meta name="viewport" content="width=device-width,initial-scale=1.0"><style>
-//     *{margin:0;padding:0;box-sizing:border-box}
-//     body{background:#f0f0f0;display:flex;flex-direction:column;align-items:center;padding:20px;font-family:'Courier New',monospace;min-height:100vh}
-//     .bill-wrap{background:#fff;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.12);padding:24px;width:100%;max-width:340px}
-//     .bill-print{width:100%;font-family:'Courier New',monospace;color:#000}
-//     .bp-header{text-align:center;margin-bottom:12px}
-//     .bp-name{font-size:20px;font-weight:800;letter-spacing:1px}
-//     .bp-divider{border-top:1px dashed #555;margin:8px 0}
-//     table{width:100%;font-size:12px;border-collapse:collapse}
-//     td,th{padding:4px 2px}
-//     th{font-weight:700;border-bottom:1px solid #333}
-//     .bp-total{font-size:15px;font-weight:800;display:flex;justify-content:space-between;margin-top:6px;padding-top:6px;border-top:2px solid #000}
-//     .bp-footer{text-align:center;font-size:11px;margin-top:12px;color:#555;line-height:1.8}
-//     .action-bar{display:flex;gap:10px;margin-top:16px;width:100%;max-width:340px}
-//     .print-btn{flex:1;padding:12px;background:#FF6B35;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.5px}
-//     .print-btn:hover{background:#e55a25}
-//     .close-btn{padding:12px 16px;background:#eee;color:#333;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
-//     @media print{
-//         body{background:#fff;padding:0}
-//         .action-bar{display:none}
-//         .bill-wrap{box-shadow:none;padding:0;border-radius:0}
-//     }
-//   </style></head><body>
-//   <div class="bill-wrap">${billHtml}</div>
-//   <div class="action-bar">
-//     <button class="print-btn" onclick="window.print()">🖨️ Print Bill</button>
-//     <button class="close-btn" onclick="window.close()">✕ Close</button>
-//   </div>
-//   <script>
-//     // Auto trigger print dialog option
-//     // window.onload = () => window.print();
-//   <\/script>
-//   </body></html>`);
-//             w.document.close();
-//         }
+        //     async function previewBill(oid) {
+        //             currentOid = oid;
+        //             const data = await fetch(`/api/cashier/bill_data/${oid}`).then(r => r.json());
+        //             currentBillData = data;
+        //             const w = window.open('', '_blank', 'width=420,height=700');
+        //             const billHtml = buildPrintBill(data.restaurant, data.order, data.items, data.order.bill_number, '— Preview —');
+        //             w.document.write(`<html><head><title>Bill — ${data.order.bill_number}</title><meta name="viewport" content="width=device-width,initial-scale=1.0"><style>
+        //     *{margin:0;padding:0;box-sizing:border-box}
+        //     body{background:#f0f0f0;display:flex;flex-direction:column;align-items:center;padding:20px;font-family:'Courier New',monospace;min-height:100vh}
+        //     .bill-wrap{background:#fff;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.12);padding:24px;width:100%;max-width:340px}
+        //     .bill-print{width:100%;font-family:'Courier New',monospace;color:#000}
+        //     .bp-header{text-align:center;margin-bottom:12px}
+        //     .bp-name{font-size:20px;font-weight:800;letter-spacing:1px}
+        //     .bp-divider{border-top:1px dashed #555;margin:8px 0}
+        //     table{width:100%;font-size:12px;border-collapse:collapse}
+        //     td,th{padding:4px 2px}
+        //     th{font-weight:700;border-bottom:1px solid #333}
+        //     .bp-total{font-size:15px;font-weight:800;display:flex;justify-content:space-between;margin-top:6px;padding-top:6px;border-top:2px solid #000}
+        //     .bp-footer{text-align:center;font-size:11px;margin-top:12px;color:#555;line-height:1.8}
+        //     .action-bar{display:flex;gap:10px;margin-top:16px;width:100%;max-width:340px}
+        //     .print-btn{flex:1;padding:12px;background:#FF6B35;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.5px}
+        //     .print-btn:hover{background:#e55a25}
+        //     .close-btn{padding:12px 16px;background:#eee;color:#333;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+        //     @media print{
+        //         body{background:#fff;padding:0}
+        //         .action-bar{display:none}
+        //         .bill-wrap{box-shadow:none;padding:0;border-radius:0}
+        //     }
+        //   </style></head><body>
+        //   <div class="bill-wrap">${billHtml}</div>
+        //   <div class="action-bar">
+        //     <button class="print-btn" onclick="window.print()">🖨️ Print Bill</button>
+        //     <button class="close-btn" onclick="window.close()">✕ Close</button>
+        //   </div>
+        //   <script>
+        //     // Auto trigger print dialog option
+        //     // window.onload = () => window.print();
+        //   <\/script>
+        //   </body></html>`);
+        //             w.document.close();
+        //         }
 
 
-    async function previewBill(oid) {
-        currentOid = oid;
-        const data = await fetch(`/api/cashier/bill_data/${oid}`).then(r => r.json());
-        currentBillData = data;
-        const billHtml = buildPrintBill(data.restaurant, data.order, data.items, data.order.token_number, '—');
-        $('preview-bill-area').innerHTML = `<div style="background:#fff;border-radius:10px;padding:20px">${billHtml}</div>`;
-        openModal('preview-bill-modal');
-    }
+        async function previewBill(oid) {
+            currentOid = oid;
+            const data = await fetch(`/api/cashier/bill_data/${oid}`).then(r => r.json());
+            currentBillData = data;
+            const billHtml = buildPrintBill(data.restaurant, data.order, data.items, data.order.token_number, '—');
+            $('preview-bill-area').innerHTML = `<div style="background:#fff;border-radius:10px;padding:20px">${billHtml}</div>`;
+            openModal('preview-bill-modal');
+        }
         async function openPayModal(oid, total) {
             currentOid = oid;
             const data = await fetch(`/api/cashier/bill_data/${oid}`).then(r => r.json());
@@ -1228,13 +1640,13 @@
             const { order, items } = data;
             $('pay-amount').value = parseFloat(order.total_amount).toFixed(2);
             const gstEnabled = data.restaurant.gst_enabled !== false;
-        $('pay-bill-preview').innerHTML = `
+            $('pay-bill-preview').innerHTML = `
     <div class="bill-summary">
       <div style="margin-bottom:8px">
         ${items.map(i => {
-            const qty = i.quantity_kg ? (i.quantity_kg >= 1 ? i.quantity_kg.toFixed(3)+'kg' : (i.quantity_kg*1000).toFixed(0)+'gm') : '×'+i.quantity;
-            return `<div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0"><span>${i.item_name} <b>${qty}</b></span><span>₹${(i.price * i.quantity).toFixed(0)}</span></div>`;
-        }).join('')}
+                const qty = i.quantity_kg ? (i.quantity_kg >= 1 ? i.quantity_kg.toFixed(3) + 'kg' : (i.quantity_kg * 1000).toFixed(0) + 'gm') : '×' + i.quantity;
+                return `<div style="display:flex;justify-content:space-between;font-size:13px;padding:3px 0"><span>${i.item_name} <b>${qty}</b></span><span>₹${(i.price * i.quantity).toFixed(0)}</span></div>`;
+            }).join('')}
       </div>
       <div style="font-size:15px;font-weight:800;color:var(--brand);margin-bottom:8px">Token #${order.token_number || '—'}</div>
       <div style="border-top:1px solid var(--border);padding-top:8px">
@@ -1283,7 +1695,7 @@
 
 
 
-        
+
 
 
         async function confirmPayment() {
@@ -1343,7 +1755,7 @@
     <div class="bp-divider"></div>
     <div style="font-size:11px;display:flex;justify-content:space-between">
       <span>Token#: ${billNo}</span>
-      <span>${new Date().toLocaleDateString('en-IN', {timeZone:'Asia/Kolkata'})}</span>
+      <span>${new Date().toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' })}</span>
     </div>
     <div style="font-size:11px;margin-bottom:8px">${order.customer_name && !order.customer_name.startsWith('WK-') ? order.customer_name : ''}</div>
     <div class="bp-divider"></div>
@@ -1362,7 +1774,7 @@
         }
 
         function getThermalCSS() {
-    return `
+            return `
     * {
         margin: 0;
         padding: 0;
@@ -1468,11 +1880,11 @@
         }
     }
     `;
-}
+        }
 
         function printThermal(content) {
-    const w = window.open('', '_blank', 'width=400,height=600');
-    w.document.write(`<!DOCTYPE html>
+            const w = window.open('', '_blank', 'width=400,height=600');
+            w.document.write(`<!DOCTYPE html>
 <html>
 <head>
     <title>Print Bill</title>
@@ -1495,8 +1907,8 @@
     <\/script>
 </body>
 </html>`);
-    w.document.close();
-}
+            w.document.close();
+        }
 
         function printPreviewBill() {
             const content = $('preview-bill-area').innerHTML;
@@ -1509,11 +1921,11 @@
         }
 
         function saveAsPDF(source) {
-    const content = source === 'preview'
-        ? $('preview-bill-area').innerHTML
-        : $('success-bill-area').innerHTML;
-    const w = window.open('', '_blank', 'width=500,height=800');
-    w.document.write(`<!DOCTYPE html>
+            const content = source === 'preview'
+                ? $('preview-bill-area').innerHTML
+                : $('success-bill-area').innerHTML;
+            const w = window.open('', '_blank', 'width=500,height=800');
+            w.document.write(`<!DOCTYPE html>
 <html>
 <head>
     <title>🧾 Bill</title>
@@ -1721,8 +2133,8 @@
     <\/script>
 </body>
 </html>`);
-    w.document.close();
-}
+            w.document.close();
+        }
 
         async function loadHistory() {
             const rows = await fetch('/api/cashier/payment_history').then(r => r.json());
@@ -1750,28 +2162,28 @@
         let lastPendingCount = 0;
 
         // Auto refresh pending every 1 second (background)
-        setInterval(() => { 
-        if ($('sec-pending').classList.contains('active')) {
-            loadPending();
-            
-            // Check for new pending bills
-            setTimeout(() => {
-            const pendingCards = document.querySelectorAll('.pending-card');
-            const currentCount = pendingCards.length;
-            
-            // Agar naya bill aaya (count increased)
-            if (currentCount > lastPendingCount) {
-                playBeep();
+        setInterval(() => {
+            if ($('sec-pending').classList.contains('active')) {
+                loadPending();
+
+                // Check for new pending bills
+                setTimeout(() => {
+                    const pendingCards = document.querySelectorAll('.pending-card');
+                    const currentCount = pendingCards.length;
+
+                    // Agar naya bill aaya (count increased)
+                    if (currentCount > lastPendingCount) {
+                        playBeep();
+                    }
+                    lastPendingCount = currentCount;
+                }, 100);
             }
-            lastPendingCount = currentCount;
-            }, 100);
-        }
         }, 1000);        // ═══════════════════════════════════════════════
         // NEW ORDER + ACTIVE ORDERS — CASHIER
         // ═══════════════════════════════════════════════
-        let noTables=[], noMenuAll=[], noCart=[], noSelectedTable=null;
-        let noPendingItem=null, noActiveCat='';
-        let noAmOid=null, noAmCart=[], noAmActiveCat=null;
+        let noTables = [], noMenuAll = [], noCart = [], noSelectedTable = null;
+        let noPendingItem = null, noActiveCat = '';
+        let noAmOid = null, noAmCart = [], noAmActiveCat = null;
 
         // NAV override — add new-order and active-orders handling
         const _origNav = nav;
@@ -1779,35 +2191,35 @@
         // (we redefine nav to also handle new sections)
         // Actually we just add cases via the existing nav which uses sec- prefix
 
-        async function noLoadTables(){
-            noTables = await fetch('/api/cashier/tables').then(r=>r.json());
-            $('no-tables-grid').innerHTML = noTables.map(t=>`
-                <div class="table-btn ${t.status==='occupied'?'occupied':''} ${noSelectedTable?.id===t.id?'selected':''}"
-                    onclick="${t.status!=='occupied'?`noSelectTable(${t.id},'${t.table_number}')`:''}"
+        async function noLoadTables() {
+            noTables = await fetch('/api/cashier/tables').then(r => r.json());
+            $('no-tables-grid').innerHTML = noTables.map(t => `
+                <div class="table-btn ${t.status === 'occupied' ? 'occupied' : ''} ${noSelectedTable?.id === t.id ? 'selected' : ''}"
+                    onclick="${t.status !== 'occupied' ? `noSelectTable(${t.id},'${t.table_number}')` : ''}"
                     title="${t.status}">
                     <div class="tnum">${t.table_number}</div>
                     <div style="font-size:10px;opacity:0.7">👥${t.capacity}</div>
-                    <div style="font-size:9px;margin-top:3px;font-weight:700;text-transform:uppercase;color:${t.status==='available'?'var(--green)':t.status==='occupied'?'var(--red)':'var(--yellow)'}">${t.status}</div>
+                    <div style="font-size:9px;margin-top:3px;font-weight:700;text-transform:uppercase;color:${t.status === 'available' ? 'var(--green)' : t.status === 'occupied' ? 'var(--red)' : 'var(--yellow)'}">${t.status}</div>
                 </div>`).join('');
         }
 
-        function noSelectTable(id, num){
-            noSelectedTable = noTables.find(t=>t.id===id);
+        function noSelectTable(id, num) {
+            noSelectedTable = noTables.find(t => t.id === id);
             noSelectedTable._walkin = false;
             $('no-selected-table-label').textContent = `Table ${num} selected ✓`;
-            document.querySelectorAll('#no-tables-grid .table-btn').forEach(b=>b.classList.remove('selected'));
+            document.querySelectorAll('#no-tables-grid .table-btn').forEach(b => b.classList.remove('selected'));
             event.currentTarget.classList.add('selected');
-            $('no-walkin-btn').style.border='2px dashed #3b82f6';
-            $('no-walkin-btn').style.background='rgba(59,130,246,0.08)';
+            $('no-walkin-btn').style.border = '2px dashed #3b82f6';
+            $('no-walkin-btn').style.background = 'rgba(59,130,246,0.08)';
             toast(`Table ${num} selected`);
         }
 
-        function noSelectWalkin(){
+        function noSelectWalkin() {
             noSelectedTable = { id: null, _walkin: true };
             $('no-selected-table-label').textContent = '🚶 Walk-in selected ✓';
-            document.querySelectorAll('#no-tables-grid .table-btn').forEach(b=>b.classList.remove('selected'));
-            $('no-walkin-btn').style.border='2px solid #3b82f6';
-            $('no-walkin-btn').style.background='rgba(59,130,246,0.18)';
+            document.querySelectorAll('#no-tables-grid .table-btn').forEach(b => b.classList.remove('selected'));
+            $('no-walkin-btn').style.border = '2px solid #3b82f6';
+            $('no-walkin-btn').style.background = 'rgba(59,130,246,0.18)';
             toast('Walk-in selected');
         }
 
@@ -1907,42 +2319,24 @@
             noWmPendingItem = null;
         }
 
-        // async function noLoadMenu() {
-        //     noMenuAll = await fetch('/api/cashier/menu').then(r => r.json());
-        //     const cats=[...new Map(noMenuAll.map(m=>[m.category_id,{id:m.category_id,name:m.category_name}])).values()];
-        //     $('no-cat-tabs').innerHTML=`<div class="cat-tab active" data-cat="" onclick="noFilterMenu(this)">All</div>`+
-        //         cats.map(c=>`<div class="cat-tab" data-cat="${c.id}" onclick="noFilterMenu(this)">${c.name}</div>`).join('');
-        //     noRenderMenuGrid(noMenuAll);
-        // }
-
-
         async function noLoadMenu() {
             noMenuAll = await fetch('/api/cashier/menu').then(r => r.json());
-            const catMap = new Map();
-            noMenuAll.forEach(m => { if (!catMap.has(m.category_id)) catMap.set(m.category_id, { id: m.category_id, name: m.category_name, top_pick: m.category_top_pick || null }); });
-            let cats = [...catMap.values()];
-            const topPicks = cats.filter(c => c.top_pick).sort((a, b) => a.top_pick - b.top_pick);
-            const others = cats.filter(c => !c.top_pick);
-            const ordered = [...topPicks, ...others];
-            const defaultCat = topPicks.length ? topPicks[0] : null;
-            $('no-cat-tabs').innerHTML = ordered.map(c => `<div class="cat-tab ${defaultCat && c.id === defaultCat.id ? 'active' : ''}" data-cat="${c.id}" onclick="noFilterMenu(this)">${c.top_pick ? '⭐ ' : ''}${c.name}</div>`).join('') +
-                `<div class="cat-tab ${!defaultCat ? 'active' : ''}" data-cat="" onclick="noFilterMenu(this)">All</div>`;
-            noActiveCat = defaultCat ? String(defaultCat.id) : '';
-            noRenderMenuGrid(defaultCat ? noMenuAll.filter(m => m.category_id == defaultCat.id) : noMenuAll);
+            const cats = [...new Map(noMenuAll.map(m => [m.category_id, { id: m.category_id, name: m.category_name }])).values()];
+            $('no-cat-tabs').innerHTML = `<div class="cat-tab active" data-cat="" onclick="noFilterMenu(this)">All</div>` +
+                cats.map(c => `<div class="cat-tab" data-cat="${c.id}" onclick="noFilterMenu(this)">${c.name}</div>`).join('');
+            noRenderMenuGrid(noMenuAll);
         }
 
-        
-
-        function noFilterMenu(tabEl){
-            if(tabEl){
-                document.querySelectorAll('#no-cat-tabs .cat-tab').forEach(t=>t.classList.remove('active'));
+        function noFilterMenu(tabEl) {
+            if (tabEl) {
+                document.querySelectorAll('#no-cat-tabs .cat-tab').forEach(t => t.classList.remove('active'));
                 tabEl.classList.add('active');
-                noActiveCat=tabEl.dataset.cat;
+                noActiveCat = tabEl.dataset.cat;
             }
-            const q=$('no-menu-search').value.toLowerCase();
-            let items=noMenuAll;
-            if(noActiveCat) items=items.filter(m=>m.category_id==noActiveCat);
-            if(q) items=items.filter(m=>m.name.toLowerCase().includes(q));
+            const q = $('no-menu-search').value.toLowerCase();
+            let items = noMenuAll;
+            if (noActiveCat) items = items.filter(m => m.category_id == noActiveCat);
+            if (q) items = items.filter(m => m.name.toLowerCase().includes(q));
             noRenderMenuGrid(items);
         }
 
@@ -1951,50 +2345,50 @@
                     <div class="no-menu-item" onclick="noOpenWeightModal(${JSON.stringify(m).replace(/"/g, '&quot;')})">
                     <div class="no-mic-name">${m.name}</div>
                     <div class="no-mic-price">₹${parseFloat(m.price).toFixed(0)}</div>
-                    ${m.description?`<div class="no-mic-desc">${m.description}</div>`:''}
+                    ${m.description ? `<div class="no-mic-desc">${m.description}</div>` : ''}
                 </div>`).join('');
         }
 
-        function noOpenSpecModal(item){
-            noPendingItem=item;
-            $('no-spec-item-name').textContent=item.name+' — ₹'+parseFloat(item.price).toFixed(0);
-            $('no-spec-input').value='';
+        function noOpenSpecModal(item) {
+            noPendingItem = item;
+            $('no-spec-item-name').textContent = item.name + ' — ₹' + parseFloat(item.price).toFixed(0);
+            $('no-spec-input').value = '';
             openModal('no-spec-modal');
         }
 
-        function noConfirmAddItem(){
-            if(!noPendingItem) return;
-            const spec=$('no-spec-input').value.trim();
-            noAddToCart({...noPendingItem, special_instruction:spec});
+        function noConfirmAddItem() {
+            if (!noPendingItem) return;
+            const spec = $('no-spec-input').value.trim();
+            noAddToCart({ ...noPendingItem, special_instruction: spec });
             closeModal('no-spec-modal');
             toast(`${noPendingItem.name} added`);
-            noPendingItem=null;
+            noPendingItem = null;
         }
 
-        function noAddToCart(item){
-            const ex=noCart.find(c=>c.id===item.id && c.special_instruction===item.special_instruction);
-            if(ex) ex.quantity++;
-            else noCart.push({...item,quantity:1});
+        function noAddToCart(item) {
+            const ex = noCart.find(c => c.id === item.id && c.special_instruction === item.special_instruction);
+            if (ex) ex.quantity++;
+            else noCart.push({ ...item, quantity: 1 });
             noRenderCart();
         }
 
-        function noRenderCart(){
-            $('no-cart-count').textContent=`${noCart.reduce((s,i)=>s+i.quantity,0)} items`;
-            if(!noCart.length){
-                $('no-cart-items').innerHTML='<div style="padding:20px;text-align:center;color:var(--muted);font-size:13px">No items added yet</div>';
-                $('no-bill-subtotal').textContent='₹0';
-                $('no-bill-gst').textContent='₹0';
-                $('no-bill-total').textContent='₹0';
+        function noRenderCart() {
+            $('no-cart-count').textContent = `${noCart.reduce((s, i) => s + i.quantity, 0)} items`;
+            if (!noCart.length) {
+                $('no-cart-items').innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:13px">No items added yet</div>';
+                $('no-bill-subtotal').textContent = '₹0';
+                $('no-bill-gst').textContent = '₹0';
+                $('no-bill-total').textContent = '₹0';
                 return;
             }
-            $('no-cart-items').innerHTML=noCart.map((item,idx)=>{
+            $('no-cart-items').innerHTML = noCart.map((item, idx) => {
                 const priceInfo = item.weight_label
-                    ? `<span style="color:var(--brand);font-weight:700">${item.weight_label}</span> × ${item.quantity} = <span style="color:var(--green)">₹${(parseFloat(item.price)*item.quantity).toFixed(0)}</span>`
+                    ? `<span style="color:var(--brand);font-weight:700">${item.weight_label}</span> × ${item.quantity} = <span style="color:var(--green)">₹${(parseFloat(item.price) * item.quantity).toFixed(0)}</span>`
                     : `₹${parseFloat(item.price).toFixed(0)} × ${item.quantity}`;
                 return `<div class="no-cart-item">
                     <div style="flex:1;min-width:0">
                         <div style="font-size:13px;font-weight:600">${item.name}</div>
-                        <div style="font-size:12px;color:var(--muted)">${priceInfo}${item.special_instruction?` · <em style="color:var(--yellow)">${item.special_instruction}</em>`:''}</div>
+                        <div style="font-size:12px;color:var(--muted)">${priceInfo}${item.special_instruction ? ` · <em style="color:var(--yellow)">${item.special_instruction}</em>` : ''}</div>
                     </div>
                     <div class="no-qty-ctrl">
                         <button class="no-qty-btn" onclick="noChangeQty(${idx},-1)">−</button>
@@ -2004,26 +2398,26 @@
                     <button class="no-ci-remove" onclick="noRemoveItem(${idx})">✕</button>
                 </div>`;
             }).join('');
-            const sub=noCart.reduce((s,i)=>s+parseFloat(i.price)*i.quantity,0);
+            const sub = noCart.reduce((s, i) => s + parseFloat(i.price) * i.quantity, 0);
             const gstPct = window._gstEnabled ? (window._gstPct || 5) / 100 : 0;
-            const gst=sub*gstPct;
-            $('no-bill-subtotal').textContent='₹'+sub.toFixed(2);
-            $('no-bill-gst').textContent='₹'+gst.toFixed(2);
-            $('no-bill-total').textContent='₹'+(sub+gst).toFixed(2);
+            const gst = sub * gstPct;
+            $('no-bill-subtotal').textContent = '₹' + sub.toFixed(2);
+            $('no-bill-gst').textContent = '₹' + gst.toFixed(2);
+            $('no-bill-total').textContent = '₹' + (sub + gst).toFixed(2);
         }
 
-        function noChangeQty(idx,delta){
-            noCart[idx].quantity+=delta;
-            if(noCart[idx].quantity<=0) noCart.splice(idx,1);
+        function noChangeQty(idx, delta) {
+            noCart[idx].quantity += delta;
+            if (noCart[idx].quantity <= 0) noCart.splice(idx, 1);
             noRenderCart();
         }
-        function noRemoveItem(idx){ noCart.splice(idx,1); noRenderCart(); }
-        function noClearCart(){
-            noCart=[]; noSelectedTable=null;
-            $('no-selected-table-label').textContent='';
-            document.querySelectorAll('#no-tables-grid .table-btn').forEach(b=>b.classList.remove('selected'));
-            $('no-walkin-btn').style.border='2px dashed #3b82f6';
-            $('no-walkin-btn').style.background='rgba(59,130,246,0.08)';
+        function noRemoveItem(idx) { noCart.splice(idx, 1); noRenderCart(); }
+        function noClearCart() {
+            noCart = []; noSelectedTable = null;
+            $('no-selected-table-label').textContent = '';
+            document.querySelectorAll('#no-tables-grid .table-btn').forEach(b => b.classList.remove('selected'));
+            $('no-walkin-btn').style.border = '2px dashed #3b82f6';
+            $('no-walkin-btn').style.background = 'rgba(59,130,246,0.08)';
             noRenderCart();
         }
 
@@ -2051,50 +2445,50 @@
                 customer_count: parseInt($('no-cust-count').value) || 1,
                 items: noCart.map(i => ({ id: i.id, name: i.name, price: parseFloat(i.price), quantity: i.quantity, quantity_kg: i.quantity_kg || null, weight_label: i.weight_label || '', special_instruction: i.special_instruction || '' }))
             };
-            const res=await fetch('/api/cashier/place_order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>r.json());
-            if(res.ok){
+            const res = await fetch('/api/cashier/place_order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).then(r => r.json());
+            if (res.ok) {
                 toast(`Order placed ✓ — Token #${res.token_number} — Payment lo`);
                 // Cart/table reset
                 const placedTableId = noSelectedTable._walkin ? null : noSelectedTable.id;
-                noCart=[]; noSelectedTable=null;
-                $('no-selected-table-label').textContent='';
-                $('no-cust-name').value=''; $('no-cust-mobile').value=''; $('no-cust-count').value='1';
+                noCart = []; noSelectedTable = null;
+                $('no-selected-table-label').textContent = '';
+                $('no-cust-name').value = ''; $('no-cust-mobile').value = ''; $('no-cust-count').value = '1';
                 noRenderCart(); noLoadTables();
                 // Seedha payment modal kholo
                 await openPayModal(res.order_id);
-            } else toast(res.msg||'Error placing order','error');
+            } else toast(res.msg || 'Error placing order', 'error');
         }
 
-        async function noLoadActiveOrders(){
-            const orders=await fetch('/api/cashier/my_orders').then(r=>r.json());
-            $('no-active-badge').textContent=orders.length;
-            $('no-active-label').textContent=`${orders.length} active table${orders.length!==1?'s':''}`;
-            if(!orders.length){
-                $('no-orders-grid').innerHTML='<div style="color:var(--muted);font-size:13px;grid-column:1/-1;text-align:center;padding:40px">No active orders — all quiet! 🎉</div>';
+        async function noLoadActiveOrders() {
+            const orders = await fetch('/api/cashier/my_orders').then(r => r.json());
+            $('no-active-badge').textContent = orders.length;
+            $('no-active-label').textContent = `${orders.length} active table${orders.length !== 1 ? 's' : ''}`;
+            if (!orders.length) {
+                $('no-orders-grid').innerHTML = '<div style="color:var(--muted);font-size:13px;grid-column:1/-1;text-align:center;padding:40px">No active orders — all quiet! 🎉</div>';
                 return;
             }
-            $('no-orders-grid').innerHTML=orders.map(o=>{
-                const allReady=o.items.length&&o.items.every(i=>i.status==='ready');
-                const someReady=o.items.some(i=>i.status==='ready');
-                const total=parseFloat(o.total_amount||0);
+            $('no-orders-grid').innerHTML = orders.map(o => {
+                const allReady = o.items.length && o.items.every(i => i.status === 'ready');
+                const someReady = o.items.some(i => i.status === 'ready');
+                const total = parseFloat(o.total_amount || 0);
                 return `<div class="no-order-card">
                     <div class="no-oc-header">
                         <div>
                             <div style="font-size:16px;font-weight:800">${o.table_number ? 'Table ' + o.table_number : '🚶 Walk-in'}</div>
-                            <div style="font-size:11px;color:var(--muted)">${new Date(o.created_at).toLocaleTimeString('en-IN',{hour12:true,hour:'numeric',minute:'2-digit',timeZone:'Asia/Kolkata'})}</div>
+                            <div style="font-size:11px;color:var(--muted)">${new Date(o.created_at).toLocaleTimeString('en-IN', { hour12: true, hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Kolkata' })}</div>
                         </div>
-                        <span class="badge ${allReady?'badge-green':someReady?'badge-yellow':'badge-orange'}">${allReady?'Ready to Serve':someReady?'Partially Ready':'In Kitchen'}</span>
+                        <span class="badge ${allReady ? 'badge-green' : someReady ? 'badge-yellow' : 'badge-orange'}">${allReady ? 'Ready to Serve' : someReady ? 'Partially Ready' : 'In Kitchen'}</span>
                     </div>
                     <div class="no-oc-body">
-                        ${o.customer_name?`<div style="font-size:12px;color:var(--muted);margin-bottom:10px">👤 ${o.customer_name}${o.customer_mobile?' · 📱'+o.customer_mobile:''}</div>`:''}
+                        ${o.customer_name ? `<div style="font-size:12px;color:var(--muted);margin-bottom:10px">👤 ${o.customer_name}${o.customer_mobile ? ' · 📱' + o.customer_mobile : ''}</div>` : ''}
                         <div style="margin-bottom:12px">
-                            ${o.items.map(i=>{
-                              const qty = i.quantity_kg ? (i.quantity_kg >= 1 ? i.quantity_kg.toFixed(3) + 'kg' : (i.quantity_kg * 1000).toFixed(0) + 'gm') : ('×' + i.quantity);
-                              return `<div class="no-oc-item">
+                            ${o.items.map(i => {
+                    const qty = i.quantity_kg ? (i.quantity_kg >= 1 ? i.quantity_kg.toFixed(3) + 'kg' : (i.quantity_kg * 1000).toFixed(0) + 'gm') : ('×' + i.quantity);
+                    return `<div class="no-oc-item">
                                     <span>${i.item_name} <b>${qty}</b></span>
                                     <span class="no-oc-item-status no-status-${i.status}">${i.status}</span>
                                 </div>`;
-                            }).join('')}
+                }).join('')}
                         </div>
                         <div style="font-size:15px;font-weight:800;color:var(--brand);margin-bottom:12px">Total: ₹${total.toFixed(0)}</div>
                         <div class="no-oc-actions">
@@ -2108,57 +2502,57 @@
             }).join('');
         }
 
-        async function noMarkServed(oid){
-            await fetch('/api/cashier/mark_served',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({order_id:oid})});
+        async function noMarkServed(oid) {
+            await fetch('/api/cashier/mark_served', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ order_id: oid }) });
             toast('Marked as served ✓'); noLoadActiveOrders();
         }
 
-        async function noCancelOrder(oid){
-            if(!confirm('Cancel this order?')) return;
-            await fetch('/api/cashier/cancel_order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({order_id:oid})});
+        async function noCancelOrder(oid) {
+            if (!confirm('Cancel this order?')) return;
+            await fetch('/api/cashier/cancel_order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ order_id: oid }) });
             toast('Order cancelled'); noLoadActiveOrders(); noLoadTables();
         }
 
-        async function noOpenAddMore(oid, tableLabel){
-            noAmOid=oid; noAmCart=[];
-            $('no-am-table-label').textContent=tableLabel;
-            if(!noMenuAll.length) noMenuAll=await fetch('/api/cashier/menu').then(r=>r.json());
-            const cats=[...new Map(noMenuAll.map(m=>[m.category_id,{id:m.category_id,name:m.category_name}])).values()];
-            $('no-am-cat-tabs').innerHTML=`<div class="cat-tab active" data-cat="" onclick="noFilterAM(this)">All</div>`+
-                cats.map(c=>`<div class="cat-tab" data-cat="${c.id}" onclick="noFilterAM(this)">${c.name}</div>`).join('');
+        async function noOpenAddMore(oid, tableLabel) {
+            noAmOid = oid; noAmCart = [];
+            $('no-am-table-label').textContent = tableLabel;
+            if (!noMenuAll.length) noMenuAll = await fetch('/api/cashier/menu').then(r => r.json());
+            const cats = [...new Map(noMenuAll.map(m => [m.category_id, { id: m.category_id, name: m.category_name }])).values()];
+            $('no-am-cat-tabs').innerHTML = `<div class="cat-tab active" data-cat="" onclick="noFilterAM(this)">All</div>` +
+                cats.map(c => `<div class="cat-tab" data-cat="${c.id}" onclick="noFilterAM(this)">${c.name}</div>`).join('');
             noRenderAMGrid(noMenuAll);
             openModal('no-add-more-modal');
         }
 
-        function noFilterAM(el){
-            if(el){ document.querySelectorAll('#no-am-cat-tabs .cat-tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); noAmActiveCat=el.dataset.cat; }
-            const q=$('no-am-search').value.toLowerCase();
-            let items=noMenuAll;
-            if(noAmActiveCat) items=items.filter(m=>m.category_id==noAmActiveCat);
-            if(q) items=items.filter(m=>m.name.toLowerCase().includes(q));
+        function noFilterAM(el) {
+            if (el) { document.querySelectorAll('#no-am-cat-tabs .cat-tab').forEach(t => t.classList.remove('active')); el.classList.add('active'); noAmActiveCat = el.dataset.cat; }
+            const q = $('no-am-search').value.toLowerCase();
+            let items = noMenuAll;
+            if (noAmActiveCat) items = items.filter(m => m.category_id == noAmActiveCat);
+            if (q) items = items.filter(m => m.name.toLowerCase().includes(q));
             noRenderAMGrid(items);
         }
 
-        function noRenderAMGrid(items){
-            $('no-am-menu-grid').innerHTML=items.map(m=>`
-                <div class="no-menu-item" onclick="noAddToAMCart(${JSON.stringify(m).replace(/"/g,'&quot;')})">
+        function noRenderAMGrid(items) {
+            $('no-am-menu-grid').innerHTML = items.map(m => `
+                <div class="no-menu-item" onclick="noAddToAMCart(${JSON.stringify(m).replace(/"/g, '&quot;')})">
                     <div class="no-mic-name">${m.name}</div>
                     <div class="no-mic-price">₹${parseFloat(m.price).toFixed(0)}</div>
                 </div>`).join('');
         }
 
-        function noAddToAMCart(item){
-            const ex=noAmCart.find(c=>c.id===item.id);
-            if(ex) ex.quantity++;
-            else noAmCart.push({...item,quantity:1});
+        function noAddToAMCart(item) {
+            const ex = noAmCart.find(c => c.id === item.id);
+            if (ex) ex.quantity++;
+            else noAmCart.push({ ...item, quantity: 1 });
             noRenderAMCart();
             toast(`${item.name} added`);
         }
 
-        function noRenderAMCart(){
-            if(!noAmCart.length){ $('no-am-cart').innerHTML=''; return; }
-            $('no-am-cart').innerHTML=`<div style="font-size:12px;color:var(--muted);margin-bottom:8px">Items to add:</div>`+
-                noAmCart.map((i,idx)=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border)">
+        function noRenderAMCart() {
+            if (!noAmCart.length) { $('no-am-cart').innerHTML = ''; return; }
+            $('no-am-cart').innerHTML = `<div style="font-size:12px;color:var(--muted);margin-bottom:8px">Items to add:</div>` +
+                noAmCart.map((i, idx) => `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border)">
                     <span style="font-size:13px">${i.name}</span>
                     <div class="no-qty-ctrl">
                         <button class="no-qty-btn" onclick="noChangeAMQty(${idx},-1)">−</button>
@@ -2168,28 +2562,30 @@
                 </div>`).join('');
         }
 
-        function noChangeAMQty(idx,delta){ noAmCart[idx].quantity+=delta; if(noAmCart[idx].quantity<=0) noAmCart.splice(idx,1); noRenderAMCart(); }
+        function noChangeAMQty(idx, delta) { noAmCart[idx].quantity += delta; if (noAmCart[idx].quantity <= 0) noAmCart.splice(idx, 1); noRenderAMCart(); }
 
-        async function noSubmitAddMore(){
-            if(!noAmCart.length) return toast('No items selected','error');
-            await fetch('/api/cashier/add_items',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-                order_id:noAmOid,
-                items:noAmCart.map(i=>({id:i.id,name:i.name,price:parseFloat(i.price),quantity:i.quantity,special_instruction:''}))
-            })});
+        async function noSubmitAddMore() {
+            if (!noAmCart.length) return toast('No items selected', 'error');
+            await fetch('/api/cashier/add_items', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+                    order_id: noAmOid,
+                    items: noAmCart.map(i => ({ id: i.id, name: i.name, price: parseFloat(i.price), quantity: i.quantity, special_instruction: '' }))
+                })
+            });
             closeModal('no-add-more-modal'); toast('Items added ✓'); noLoadActiveOrders();
         }
 
         // Patch nav to load new sections
         const _navOrig = nav;
-        window.nav = function(sec, el){
+        window.nav = function (sec, el) {
             _navOrig(sec, el);
-            if(sec==='new-order'){ noLoadTables(); noLoadMenu(); }
-            if(sec==='active-orders') noLoadActiveOrders();
+            if (sec === 'new-order') { noLoadTables(); noLoadMenu(); }
+            if (sec === 'active-orders') noLoadActiveOrders();
         };
 
         // Auto-refresh active orders every 20s
-        setInterval(()=>{
-            if($('sec-active-orders').classList.contains('active')) noLoadActiveOrders();
+        setInterval(() => {
+            if ($('sec-active-orders').classList.contains('active')) noLoadActiveOrders();
         }, 20000);
 
         // GST settings fetch karo (New Order tab ke liye)
@@ -2204,7 +2600,7 @@
                 const gstRow = $('no-bill-gst')?.closest('.no-bill-row');
                 if (gstRow) gstRow.style.display = 'none';
             }
-        }).catch(() => {});
+        }).catch(() => { });
 
         loadPending();
     </script>
