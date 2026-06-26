@@ -892,12 +892,18 @@
         <div id="no-wm-item-price" style="font-size:13px;color:var(--brand);font-weight:600;margin-top:2px"></div>
         </div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
-        <div class="no-wm-opt" onclick="noSelectWmWeight(0.1,'100gm',this)">100 gm</div>
+        <!-- <div class="no-wm-opt" onclick="noSelectWmWeight(0.1,'100gm',this)">100 gm</div>
         <div class="no-wm-opt" onclick="noSelectWmWeight(0.2,'200gm',this)">200 gm</div>
         <div class="no-wm-opt" onclick="noSelectWmWeight(0.25,'250gm',this)">250 gm</div>
         <div class="no-wm-opt" onclick="noSelectWmWeight(0.5,'500gm',this)">500 gm</div>
         <div class="no-wm-opt" onclick="noSelectWmWeight(1,'1kg',this)">1 Kg</div>
+        <div class="no-wm-opt" onclick="noSelectWmWeight(null,'Custom',this)" style="color:var(--brand)">Custom ✏️</div> -->
+
+        <div class="no-wm-opt" onclick="noSelectWmWeight(0.25,'250gm',this)">250 gm</div>
+        <div class="no-wm-opt" onclick="noSelectWmWeight(0.5,'500gm',this)">500 gm</div>
         <div class="no-wm-opt" onclick="noSelectWmWeight(null,'Custom',this)" style="color:var(--brand)">Custom ✏️</div>
+
+
         </div>
         <div id="no-wm-custom-box" style="display:none;margin-bottom:12px">
         <label style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;display:block;margin-bottom:5px">Custom (grams)</label>
@@ -1901,13 +1907,31 @@
             noWmPendingItem = null;
         }
 
+        // async function noLoadMenu() {
+        //     noMenuAll = await fetch('/api/cashier/menu').then(r => r.json());
+        //     const cats=[...new Map(noMenuAll.map(m=>[m.category_id,{id:m.category_id,name:m.category_name}])).values()];
+        //     $('no-cat-tabs').innerHTML=`<div class="cat-tab active" data-cat="" onclick="noFilterMenu(this)">All</div>`+
+        //         cats.map(c=>`<div class="cat-tab" data-cat="${c.id}" onclick="noFilterMenu(this)">${c.name}</div>`).join('');
+        //     noRenderMenuGrid(noMenuAll);
+        // }
+
+
         async function noLoadMenu() {
             noMenuAll = await fetch('/api/cashier/menu').then(r => r.json());
-            const cats=[...new Map(noMenuAll.map(m=>[m.category_id,{id:m.category_id,name:m.category_name}])).values()];
-            $('no-cat-tabs').innerHTML=`<div class="cat-tab active" data-cat="" onclick="noFilterMenu(this)">All</div>`+
-                cats.map(c=>`<div class="cat-tab" data-cat="${c.id}" onclick="noFilterMenu(this)">${c.name}</div>`).join('');
-            noRenderMenuGrid(noMenuAll);
+            const catMap = new Map();
+            noMenuAll.forEach(m => { if (!catMap.has(m.category_id)) catMap.set(m.category_id, { id: m.category_id, name: m.category_name, top_pick: m.category_top_pick || null }); });
+            let cats = [...catMap.values()];
+            const topPicks = cats.filter(c => c.top_pick).sort((a, b) => a.top_pick - b.top_pick);
+            const others = cats.filter(c => !c.top_pick);
+            const ordered = [...topPicks, ...others];
+            const defaultCat = topPicks.length ? topPicks[0] : null;
+            $('no-cat-tabs').innerHTML = ordered.map(c => `<div class="cat-tab ${defaultCat && c.id === defaultCat.id ? 'active' : ''}" data-cat="${c.id}" onclick="noFilterMenu(this)">${c.top_pick ? '⭐ ' : ''}${c.name}</div>`).join('') +
+                `<div class="cat-tab ${!defaultCat ? 'active' : ''}" data-cat="" onclick="noFilterMenu(this)">All</div>`;
+            noActiveCat = defaultCat ? String(defaultCat.id) : '';
+            noRenderMenuGrid(defaultCat ? noMenuAll.filter(m => m.category_id == defaultCat.id) : noMenuAll);
         }
+
+        
 
         function noFilterMenu(tabEl){
             if(tabEl){
