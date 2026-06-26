@@ -331,6 +331,10 @@ def init_db():
     try:
         db_query("ALTER TABLE orders ADD COLUMN token_number INTEGER DEFAULT NULL")
     except: pass
+    try:
+        db_query("ALTER TABLE menu_categories ADD COLUMN top_pick INTEGER DEFAULT NULL")
+    except: pass
+
 
     conn.commit()
     conn.close()
@@ -884,8 +888,8 @@ def waiter_tables():
 @waiter_required
 @license_required
 def waiter_menu():
-    return jsonify(db_query("SELECT m.*, c.name as category_name FROM menu_items m LEFT JOIN menu_categories c ON m.category_id=c.id WHERE m.is_available=1 ORDER BY c.sort_order, m.name"))
-
+    # return jsonify(db_query("SELECT m.*, c.name as category_name FROM menu_items m LEFT JOIN menu_categories c ON m.category_id=c.id WHERE m.is_available=1 ORDER BY c.sort_order, m.name"))
+    return jsonify(db_query("SELECT m.*, c.name as category_name, c.top_pick as category_top_pick FROM menu_items m LEFT JOIN menu_categories c ON m.category_id=c.id WHERE m.is_available=1 ORDER BY c.sort_order, m.name"))
 # @app.route('/api/waiter/place_order', methods=['POST'])
 # @waiter_required
 # @license_required
@@ -1428,6 +1432,19 @@ def export_excel():
         as_attachment=True,
         download_name=fname
     )
+
+
+
+
+@app.route('/api/admin/categories/<int:cid>', methods=['PUT'])
+@admin_required
+@license_required
+def admin_update_category(cid):
+    d = request.get_json()
+    db_query("UPDATE menu_categories SET name=?, sort_order=?, top_pick=? WHERE id=?",
+        (d.get('name'), d.get('sort_order', 0), d.get('top_pick'), cid))
+    return jsonify({'ok': True})
+
 
 
 
